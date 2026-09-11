@@ -28,7 +28,12 @@ read_optional <- function(relative) {
 }
 for (evaluation_split in c("cv", "val", "benchmark")) {
   metric_file <- file.path(root, "reports", paste0(evaluation_split, "_query_metrics.csv"))
-  if (file.exists(metric_file)) {
+  summary_file <- file.path(root, "reports", paste0(evaluation_split, "_summary.csv"))
+  evaluation_files <- c(metric_file, summary_file)
+  if (any(file.exists(evaluation_files))) {
+    if (!all(file.exists(evaluation_files))) {
+      stop("Incomplete evaluation artifacts for ", evaluation_split, ".")
+    }
     python <- Sys.which("python")
     if (!nzchar(python)) stop("Python is required to verify saved evaluation provenance.")
     check <- system2(python, c("-m", "persona_memory_ranker.cli", "--root", shQuote(root),
@@ -234,6 +239,23 @@ if (!is.null(metrics) && nrow(metrics)) {
     groups <- intersect(c("split", "method"), names(values))
     summary <- aggregate(values[numeric_names], values[groups], mean)
     kable(summary, digits = 4, caption = "Unweighted means over reported queries")
+  }
+  summaries <- lapply(c("cv", "val", "benchmark"), function(s) {
+    table <- read_optional(paste0("reports/", s, "_summary.csv"))
+    if (!is.null(table)) table$split <- s
+    table
+  })
+  summaries <- Filter(Negate(is.null), summaries)
+  if (length(summaries)) {
+    intervals <- do.call(rbind, summaries)
+    intervals <- intervals[intervals$metric == "budget_recall", , drop = FALSE]
+    for (name in c("mean", "ci_low", "ci_high")) intervals[[name]] <- pmr_finite_number(intervals[[name]], name)
+    print(ggplot(intervals, aes(method, mean)) +
+      geom_errorbar(aes(ymin = ci_low, ymax = ci_high), width = 0.18, color = "#207D83") +
+      geom_point(color = "#207D83", size = 2) + coord_flip() + facet_wrap(~ split) +
+      scale_y_continuous(limits = c(0, 1)) +
+      labs(x = NULL, y = "Annotated evidence recall at 2,000 tokens",
+           title = "Retrieval comparison with 95% persona bootstrap intervals"))
   }
 } else {
   cat("No computed retrieval metrics are present. This notebook makes no performance claim.\n")

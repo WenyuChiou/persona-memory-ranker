@@ -46,7 +46,9 @@ Run the full experiment in a fresh checkout or before freezing a protocol:
 ```powershell
 powershell -File scripts/run_experiment.ps1
 Rscript R/render.R --output reports/eda.html
+Rscript R/plot_results.R --split benchmark --output reports/benchmark-budget-recall.png
 python scripts/build_report.py
+python scripts/export_models.py
 python scripts/build_demo.py --split benchmark
 ```
 
@@ -54,13 +56,13 @@ The script downloads pinned source files, calls R cleaning, aligns evidence, bui
 
 Grouped out-of-fold predictions are evaluated separately as `cv`, using the full training-query gold denominators. Reports, notebooks, slides and the demo verify saved evaluation inputs and metric-table hashes before displaying results. Regenerating an audit queue refuses to overwrite any entered reviewer fields.
 
-Large data, embeddings, R libraries, training artifacts, and videos stay out of Git. Download manifests contain source URLs, SHA-256 hashes, sizes, and selected persona IDs. The 100-case human audit queue is generated in `reports/private/human_audit_100.csv`; an empty reviewer field is **pending**, never a completed review.
+Large data, embeddings, R libraries, full R training objects, and videos stay out of Git. Small portable JSON models and feature definitions are exported to `models/`. Download manifests contain source URLs, SHA-256 hashes, sizes, and selected persona IDs. The 100-case human audit queue is generated in `reports/private/human_audit_100.csv`; an empty reviewer field is **pending**, never a completed review.
 
 ## Try the reusable interface
 
 ```powershell
 python -m persona_memory_ranker.cli retrieve --input examples/memories.json --output artifacts/example-result.json --method rrf
-python -m persona_memory_ranker.cli retrieve --input examples/memories.json --output artifacts/example-logistic.json --method logistic --models artifacts/models
+python -m persona_memory_ranker.cli retrieve --input examples/memories.json --output artifacts/example-logistic.json --method logistic --models models
 ```
 
 Input is `{"query": "...", "memories": [...]}`. Each memory supplies `memory_id`, `text`, `source_ref`, and nonnegative integer `turn_index`. The output includes ranked original evidence, scores, a context block, and its token count. The CLI uses the frozen MiniLM WordPiece tokenizer for budget accounting; a production host must also enforce its target model's tokenizer budget.

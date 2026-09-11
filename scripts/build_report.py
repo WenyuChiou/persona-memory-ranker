@@ -36,6 +36,30 @@ for split in ("cv", "val", "benchmark"):
         budget = m['budget_recall']
         lines.append(f"| {method} | {m['recall_at_5']['mean']:.4f} | {m['mrr_at_10']['mean']:.4f} | {budget['mean']:.4f} [{budget['ci_low']:.4f}, {budget['ci_high']:.4f}] | {m['candidate_recall']['mean']:.4f} |")
     lines += [""]
+    query_rows = read_csv(root/f"reports/{split}_query_metrics.csv")
+    by_query = {}
+    for row in query_rows:
+        by_query.setdefault(row['query_id'], {})[row['method']] = row
+    missing = sum(float(methods['rrf']['candidate_recall']) == 0 for methods in by_query.values())
+    lines += [f"First-stage limitation: **{missing:,}/{len(by_query):,} questions** have no annotated evidence in the candidate pool.", ""]
+    if split != "cv":
+        differences = [(float(methods['logistic']['budget_recall'])-float(methods['rrf']['budget_recall']), qid,
+                        methods['logistic'], methods['rrf']) for qid, methods in by_query.items()]
+        losses = sorted((r for r in differences if r[0] < 0), key=lambda r: (r[0], r[1]))[:3]
+        if losses:
+            lines += ["Example logistic losses against RRF, selected **after evaluation** by largest recall loss, then query ID. These examples are not a representative sample and do not affect the independently selected demo cases.", "",
+                      "| Source query ID | Logistic budget recall | RRF budget recall | Update label |",
+                      "|---|---:|---:|---|"]
+            for _, qid, learned, baseline in losses:
+                lines.append(f"| {qid} | {float(learned['budget_recall']):.3f} | {float(baseline['budget_recall']):.3f} | {learned['updated']} |")
+            lines += ["", "Query IDs index the processed query files, which retain original split/row IDs and source-memory references.", ""]
+        updates = root/f"reports/{split}_updates.csv"
+        if updates.exists():
+            lines += ["| Update annotation | Method | Budget recall | Questions |", "|---|---|---:|---:|"]
+            for row in read_csv(updates):
+                if row['metric'] == 'budget_recall' and row['method'] in ('rrf','logistic','logistic_no_position','random_forest'):
+                    lines.append(f"| {row['updated']} | {row['method']} | {float(row['mean']):.4f} | {row['queries']} |")
+            lines += [""]
 freeze_path = root/"artifacts/frozen_protocol.json"
 if freeze_path.exists():
     freeze = read_json(freeze_path)

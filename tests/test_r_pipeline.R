@@ -139,6 +139,13 @@ if (requireNamespace("rmarkdown", quietly = TRUE) && rmarkdown::pandoc_available
     envir = new.env(parent = globalenv()), quiet = TRUE)
   stopifnot(file.exists(html), file.info(html)$size > 10000L)
   cat("PASS: reproducible EDA notebook renders to HTML from synthetic fixtures.\n")
+  pmr_write_csv(data.frame(method = "logistic", budget_recall = 0.9),
+                file.path(temporary, "reports/benchmark_summary.csv"))
+  assert_error(rmarkdown::render(file.path(root, "R/eda.Rmd"), output_file = "orphan.html",
+    output_dir = temporary, params = list(project_root = temporary),
+    envir = new.env(parent = globalenv()), quiet = TRUE),
+    "Incomplete evaluation artifacts for benchmark")
+  cat("PASS: notebook rejects an orphan benchmark summary before plotting.\n")
 }
 on.exit_cleanup()
 cat("PASS: cleaning, isolation, schema, 5-fold grouped OOF, train-only scaling, finite models, JSON/glm/RDS parity, and identifier preservation.\n")
