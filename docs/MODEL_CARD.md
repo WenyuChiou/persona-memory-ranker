@@ -26,7 +26,7 @@ The CLI takes:
 }
 ```
 
-It returns selected evidence with IDs, scores, source references and original text, plus the context block and counted budget. Duplicate IDs fail. An empty candidate list returns no evidence. The graph explorer visualizes provenance; it does not add hidden relation predictions.
+It returns selected evidence with IDs, scores, source references and original text, plus the context block and counted budget. Duplicate IDs, or a repeated source-reference/turn-index pair under another ID, fail. Distinct turns in the same source remain separate. An empty candidate list returns no evidence. The graph explorer visualizes provenance; it does not add hidden relation predictions.
 
 ## Host integration
 

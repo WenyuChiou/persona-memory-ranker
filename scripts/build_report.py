@@ -2,6 +2,7 @@
 from pathlib import Path
 import json
 import platform
+from importlib.metadata import version
 
 from persona_memory_ranker.io import read_json, read_csv, write_json
 from persona_memory_ranker.pipeline import verify_evaluation, verify_frozen
@@ -42,5 +43,8 @@ if freeze_path.exists():
 lines += ["## Interpretation limits", "", "The data and annotations are synthetic. Unannotated candidates may still support a query. Alignment failures change the evaluated population. These results do not measure downstream answer quality, real-user benefit, or psychological validity. Whole-persona bootstrap intervals account for repeated queries within a persona.", "",
           "The official train/validation CSVs overlap by persona. The project preserves the benchmark, excludes its personas from development, and repairs development splitting before training. Initial system messages containing synthetic profiles are excluded from retrieval.", ""]
 (root/"reports/RESULTS.md").write_text("\n".join(lines), encoding="utf-8")
-write_json(root/"reports/runtime.json", {"python": platform.python_version(), "platform": platform.platform(), "data_revision": manifest['revision']})
+write_json(root/"reports/runtime.json", {"python": platform.python_version(), "platform": platform.platform(),
+    "data_revision": manifest['revision'],
+    "python_packages": {name: version(name) for name in ("numpy", "torch", "sentence-transformers", "transformers", "tokenizers", "huggingface-hub")},
+    "R": read_json(root/"artifacts/models/training_report.json")["software"]})
 print(root/"reports/RESULTS.md")

@@ -112,6 +112,8 @@ def test_duplicate_id_rejected_but_same_source_distinct_turns_kept():
     validate_memories(memories())
     with pytest.raises(ValueError, match="Duplicate"):
         validate_memories([memories()[0], memories()[0]])
+    with pytest.raises(ValueError, match="Duplicate source turn"):
+        validate_memories([memories()[0], memories()[0] | {"memory_id": "different-id"}])
 
 
 def test_budget_counts_full_units_skips_oversize_and_does_not_truncate():

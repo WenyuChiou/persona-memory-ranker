@@ -33,6 +33,8 @@ Rscript tests/test_r_pipeline.R
 
 If `Rscript` is not on PATH, use its installed absolute path. The Python CLI also discovers standard Windows R installations. R packages install into the project-local `.Rlib` directory.
 
+Linux source installations of the notebook dependencies require the libuv development headers (`sudo apt-get install libuv1-dev` on Ubuntu). Pandoc is also required to render HTML; `R/bootstrap.R` reports whether it is available.
+
 Start with the labelled development smoke run:
 
 ```powershell

@@ -23,6 +23,7 @@ def render_memory(memory: dict) -> str:
 
 def validate_memories(memories: list[dict]) -> None:
     seen = set()
+    sources = set()
     for memory in memories:
         for field in ("memory_id", "text", "source_ref"):
             if not isinstance(memory.get(field), str) or not memory[field].strip():
@@ -31,6 +32,10 @@ def validate_memories(memories: list[dict]) -> None:
             raise ValueError(f"Duplicate memory_id: {memory['memory_id']}")
         if type(memory.get("turn_index")) is not int or memory["turn_index"] < 0:
             raise ValueError("turn_index must be a nonnegative integer")
+        source = (memory["source_ref"], memory["turn_index"])
+        if source in sources:
+            raise ValueError("Duplicate source turn under different memory IDs")
+        sources.add(source)
         seen.add(memory["memory_id"])
 
 
