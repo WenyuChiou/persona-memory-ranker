@@ -1,0 +1,13 @@
+DATASET = "bowen-upenn/PersonaMem-v2"
+DATASET_REVISION = "ed956dea41521fc4499acbc63f966e0fd3c053ba"
+MODEL = "sentence-transformers/all-MiniLM-L6-v2"
+MODEL_REVISION = "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"
+FEATURE_VERSION = "pmr-v1"
+FEATURE_NAMES = ["bm25", "semantic", "overlap", "log_length", "position"]
+SEED = 310
+TOP_N = 50
+RRF_K = 60
+TOKEN_BUDGET = 2000
+WINDOW_TOKENS = 224
+WINDOW_OVERLAP = 32
+SPLITS = ("train", "val", "benchmark")
