@@ -1,0 +1,11 @@
+{
+  "split": "train",
+  "queries": 14822,
+  "personas": 639,
+  "candidate_pairs": 1057723,
+  "positives": 19468,
+  "feature_version": "pmr-v1",
+  "encoder": "sentence-transformers/all-MiniLM-L6-v2",
+  "encoder_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+  "source_query_sha256": "1b862b48ef00edfde417585b889beb79e6250cf6ecacbabe10dc2fbe7dffa956"
+}

@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "feature_version": "pmr-v1",
+  "features": [
+    {
+      "name": "bm25",
+      "type": "finite float",
+      "definition": "BM25 against the complete eligible history: lowercase Unicode word tokens, k1=1.5, b=0.75."
+    },
+    {
+      "name": "semantic",
+      "type": "finite float",
+      "definition": "Maximum cosine similarity over all query-window and memory-window pairs; normalized frozen embeddings."
+    },
+    {
+      "name": "overlap",
+      "type": "finite float",
+      "definition": "Fraction of distinct lowercase query word tokens present in the memory."
+    },
+    {
+      "name": "log_length",
+      "type": "finite float",
+      "definition": "Natural log of one plus the memory's WordPiece count, including its source header."
+    },
+    {
+      "name": "position",
+      "type": "finite float",
+      "definition": "Nonnegative turn index divided by the maximum index in the eligible history; denominator at least one."
+    }
+  ],
+  "encoder": {
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "window_tokens": 224,
+    "overlap_tokens": 32
+  },
+  "candidate_pool": {
+    "rule": "union of BM25 and semantic top-N",
+    "N": 50
+  },
+  "rrf_k": 60,
+  "rrf_is_learned_feature": false,
+  "memory_unit": "User turn plus following assistant messages; source text and roles preserved.",
+  "source_identity": [
+    "source_ref",
+    "turn_index"
+  ],
+  "rendered_memory_template": "[{memory_id} | {source_ref}]\n{text}",
+  "word_tokenizer": {
+    "regex": "\\w+",
+    "lowercase": true,
+    "Unicode": true
+  },
+  "preprocessing": "Apply the model JSON's training means and scales in its declared feature order.",
+  "scope": "Only rank eligible evidence. The host enforces permissions, validity, mandatory evidence and its own tokenizer budget."
+}

@@ -39,6 +39,6 @@ Raw BM25 features depend on the eligible corpus, and position uses observed turn
 
 ## Evaluation and limitations
 
-See `reports/RESULTS.md` for actual validation/benchmark numbers and `artifacts/frozen_protocol.json` for the selected portable default. The RF model is a frozen R comparison artifact, not silently substituted into the Python scorer.
+See `reports/RESULTS.md` for actual validation/benchmark numbers and the exported `models/provenance.json` for the selected portable default. The RF model is a frozen R comparison artifact, not silently substituted into the Python scorer.
 
 Known limits include synthetic data, incomplete labels, alignment exclusions, heuristic turn grouping, maximum-window matching, long units that do not fit the budget, and untested domain/language transfer. Human audit status is explicit in `reports/human_audit_status.json`.

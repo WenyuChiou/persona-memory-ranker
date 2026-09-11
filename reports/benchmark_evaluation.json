@@ -1,0 +1,265 @@
+{
+  "split": "benchmark",
+  "queries": 4471,
+  "r_python_max_error": 3.4416913763379853e-15,
+  "input_sha256": {
+    "files": {
+      "data/processed/features_benchmark.csv": "2282a5865c730929e60ec23f0c49b12424dca7825920cd83ac64112f7d6f7aca",
+      "data/processed/benchmark_queries.jsonl": "61a0df437d6428fbb22fdc7db89d8ee20fca8d978ea7e782b69dd3018e3dcf77",
+      "data/processed/memories.jsonl": "02edd9c25789b4536082eb39114166544e886a2f3c4723322b92bb726a378de8",
+      "data/download_manifest.json": "ae96254bb27d2db1b5ae9a6e3b5571de9ea42fa1de10f0c46dd8d7fd64ce2769",
+      "reports/split_audit.json": "7a401e1619c4f80551eed90f3b29fbce335870d3c5c2ef7b11496be7b2a66e59",
+      "artifacts/models/benchmark_predictions.csv": "544a9d4b8df625cbf09a0626d603819f3fe88cbb53e7c77926005ce9eb4397dd",
+      "artifacts/models/logistic.json": "c3a317b16ef8460d4e07b075cda714bbeb9baaa9aa6f332b21267080a2860621",
+      "artifacts/models/logistic_no_position.json": "6c4c3196b89b29018f72fcd94a17418f438f6a366dd42b4905678af1fb1d3d8a",
+      "artifacts/models/logistic.rds": "c1c74e88415a0d25230e1c311443b1c0215dfd4a3b98566d95e0654cd9c0e5a0",
+      "artifacts/models/logistic_no_position.rds": "b266b85bcf7d086164f2d62271df58d46ba817d53f4034954c3dcc687f09fb15",
+      "artifacts/models/models.rds": "a13ad6612197ba3f55870967a02c96947001808083b9641cb43484efdc4d8ec1",
+      "artifacts/models/random_forest.rds": "2fccc92d85122dc62138b0c4019c79884ecbbc79a487cc8f3453e641b768b035"
+    },
+    "source": {
+      "src/persona_memory_ranker/__init__.py": "0531c1afed2797a9f04e5883e3ff154932c2088cca382fa0ed785ef74c594f4e",
+      "src/persona_memory_ranker/cli.py": "66648726786242a702023e6c0a6174bfd2f764976934529a03487e03faa68e69",
+      "src/persona_memory_ranker/config.py": "969b7edb892df555f2cd7c7d9c83333c2b4018763c0eb6c564425a53298847f1",
+      "src/persona_memory_ranker/data.py": "32212b335173f37053bc1b0ce6a064d1e10acd515c86352330e661898aa1a326",
+      "src/persona_memory_ranker/io.py": "92df83d65bddf4cee4c95f26ce1f176e95539665a8073e6467fcfdb6ac4aa24a",
+      "src/persona_memory_ranker/metrics.py": "81926c2909aa4e3cc145a90c5894b3e9ff9f382c49ba96a763fd47c2efe08678",
+      "src/persona_memory_ranker/pipeline.py": "a32d863f869ac570394d20a19ae0d750a0607d1260bb06924513ae224c732632",
+      "src/persona_memory_ranker/retrieval.py": "3d237ed20b8ebc02b0addcb9704a9c8b9747fd4434f752edb604137dcc923438",
+      "R/bootstrap.R": "112460d533344a6a6988df9b2a9c9ea3b4ea4a2c288a918253d5e1e630c43afa",
+      "R/common.R": "084f1fb5a8dc8154afd2f80758b92f35b0eb82d8fab3e7c9fce49a85850e4e54",
+      "R/models.R": "5be2b9f4645c6773464d2880d83f84c0bbe4107a7d02911517ec27bf28e8f4be",
+      "R/plot_results.R": "d4433b0bfa30cd181135d35429a307d9e20e64df1fa1bc8fac65cfe93f5cbf3d",
+      "R/predict.R": "c64bd1c64542df750d51b71831bf1d4c0823d3b2cdbd7e99e46c4c8a82b46838",
+      "R/prepare.R": "5f4b4b952c63700148651547e68d1930ab777ccee5042316470387cc70993458",
+      "R/render.R": "88b83cfd89d2d1de7618bd997efa409c4a2a21c0a09c91023568374130efd4f4",
+      "R/train.R": "ea50aa96be7c274b1552478a4467190ee41e746e6f37131a3765653389d296a9"
+    }
+  },
+  "output_sha256": {
+    "reports/benchmark_query_metrics.csv": "8dd87965da8ddb3fa9915aba8ce13db4c4e24926af55d821a90f961ba0820807",
+    "reports/benchmark_summary.csv": "79c7a418facaaed173ea68b513a15f83167623d9bf01aa471f5a5bcf6912efdb",
+    "reports/benchmark_updates.csv": "6bb495abc0d3cccc4de8b34b05e75ad2b7fc51fa227711ffcabd1a7f25336247"
+  },
+  "synthetic_data": true,
+  "persona_limit_per_split": null,
+  "summary": [
+    {
+      "method": "bm25",
+      "metric": "recall_at_5",
+      "mean": 0.2558711697606799,
+      "ci_low": 0.2423939530235631,
+      "ci_high": 0.26820625606559245,
+      "queries": 4471,
+      "personas": 200
+    },
+    {
+      "method": "bm25",
+      "metric": "mrr_at_10",
+      "mean": 0.24752345805242248,
+      "ci_low": 0.2352749007652238,
+      "ci_high": 0.2600002439836953,
+      "queries": 4471,
+      "personas": 200
+    },
+    {
+      "method": "bm25",
+      "metric": "budget_recall",
+      "mean": 0.28997987027510624,
+      "ci_low": 0.2755931609480809,
+      "ci_high": 0.3030624217259896,
+      "queries": 4471,
+      "personas": 200
+    },
+    {
+      "method": "bm25",
+      "metric": "candidate_recall",
+      "mean": 0.8697345858495489,
+      "ci_low": 0.8610342585620256,
+      "ci_high": 0.878615202522275,
+      "queries": 4471,
+      "personas": 200
+    },
+    {
+      "method": "logistic",
+      "metric": "recall_at_5",
+      "mean": 0.35830910310892417,
+      "ci_low": 0.3422422813078013,
+      "ci_high": 0.3727580354635469,
+      "queries": 4471,
+      "personas": 200
+    },
+    {
+      "method": "logistic",
+      "metric": "mrr_at_10",
+      "mean": 0.31098419088801554,
+      "ci_low": 0.2974358437803775,
+      "ci_high": 0.3251220462663185,
+      "queries": 4471,
+      "personas": 200
+    },
+    {
+      "method": "logistic",
+      "metric": "budget_recall",
+      "mean": 0.39411391933199136,
+      "ci_low": 0.37817087204079325,
+      "ci_high": 0.40933202745625846,
+      "queries": 4471,
+      "personas": 200
+    },
+    {
+      "method": "logistic",
+      "metric": "candidate_recall",
+      "mean": 0.8697345858495489,
+      "ci_low": 0.8610342585620256,
+      "ci_high": 0.878615202522275,
+      "queries": 4471,
+      "personas": 200
+    },
+    {
+      "method": "logistic_no_position",
+      "metric": "recall_at_5",
+      "mean": 0.35484231715499887,
+      "ci_low": 0.33938077219917223,
+      "ci_high": 0.36965062005429844,
+      "queries": 4471,
+      "personas": 200
+    },
+    {
+      "method": "logistic_no_position",
+      "metric": "mrr_at_10",
+      "mean": 0.3068342546143933,
+      "ci_low": 0.29315438530203125,
+      "ci_high": 0.32116376646281175,
+      "queries": 4471,
+      "personas": 200
+    },
+    {
+      "method": "logistic_no_position",
+      "metric": "budget_recall",
+      "mean": 0.3916163423544322,
+      "ci_low": 0.37555136982945675,
+      "ci_high": 0.4069296045343417,
+      "queries": 4471,
+      "personas": 200
+    },
+    {
+      "method": "logistic_no_position",
+      "metric": "candidate_recall",
+      "mean": 0.8697345858495489,
+      "ci_low": 0.8610342585620256,
+      "ci_high": 0.878615202522275,
+      "queries": 4471,
+      "personas": 200
+    },
+    {
+      "method": "random_forest",
+      "metric": "recall_at_5",
+      "mean": 0.341590248266607,
+      "ci_low": 0.3268946731464608,
+      "ci_high": 0.35548785677318373,
+      "queries": 4471,
+      "personas": 200
+    },
+    {
+      "method": "random_forest",
+      "metric": "mrr_at_10",
+      "mean": 0.30502470950357324,
+      "ci_low": 0.2922220295750566,
+      "ci_high": 0.3184430134879515,
+      "queries": 4471,
+      "personas": 200
+    },
+    {
+      "method": "random_forest",
+      "metric": "budget_recall",
+      "mean": 0.3816260344441959,
+      "ci_low": 0.36588688624919447,
+      "ci_high": 0.3958375268384326,
+      "queries": 4471,
+      "personas": 200
+    },
+    {
+      "method": "random_forest",
+      "metric": "candidate_recall",
+      "mean": 0.8697345858495489,
+      "ci_low": 0.8610342585620256,
+      "ci_high": 0.878615202522275,
+      "queries": 4471,
+      "personas": 200
+    },
+    {
+      "method": "rrf",
+      "metric": "recall_at_5",
+      "mean": 0.3202117348840677,
+      "ci_low": 0.30574349086908287,
+      "ci_high": 0.3341346363253495,
+      "queries": 4471,
+      "personas": 200
+    },
+    {
+      "method": "rrf",
+      "metric": "mrr_at_10",
+      "mean": 0.29527537250641706,
+      "ci_low": 0.2821158850466334,
+      "ci_high": 0.30797141382335663,
+      "queries": 4471,
+      "personas": 200
+    },
+    {
+      "method": "rrf",
+      "metric": "budget_recall",
+      "mean": 0.3547677626183553,
+      "ci_low": 0.34068090073314644,
+      "ci_high": 0.3694864160911857,
+      "queries": 4471,
+      "personas": 200
+    },
+    {
+      "method": "rrf",
+      "metric": "candidate_recall",
+      "mean": 0.8697345858495489,
+      "ci_low": 0.8610342585620256,
+      "ci_high": 0.878615202522275,
+      "queries": 4471,
+      "personas": 200
+    },
+    {
+      "method": "semantic",
+      "metric": "recall_at_5",
+      "mean": 0.3448892865130843,
+      "ci_low": 0.3296291136013755,
+      "ci_high": 0.35945231031928637,
+      "queries": 4471,
+      "personas": 200
+    },
+    {
+      "method": "semantic",
+      "metric": "mrr_at_10",
+      "mean": 0.2981123501365058,
+      "ci_low": 0.2846197124562497,
+      "ci_high": 0.31220042839371975,
+      "queries": 4471,
+      "personas": 200
+    },
+    {
+      "method": "semantic",
+      "metric": "budget_recall",
+      "mean": 0.38043316185789905,
+      "ci_low": 0.36482799359540385,
+      "ci_high": 0.3951674475609588,
+      "queries": 4471,
+      "personas": 200
+    },
+    {
+      "method": "semantic",
+      "metric": "candidate_recall",
+      "mean": 0.8697345858495489,
+      "ci_low": 0.8610342585620256,
+      "ci_high": 0.878615202522275,
+      "queries": 4471,
+      "personas": 200
+    }
+  ],
+  "protocol_sha256": "52e594c8b361695c72771903ab1238512f51ba2c49f6fbfe5ae1d3b4e775c1e7"
+}

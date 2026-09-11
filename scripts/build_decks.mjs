@@ -7,6 +7,8 @@ import {createRequire} from 'node:module';
 const root = path.resolve(process.cwd());
 const milestone = process.argv[2];
 if (!['M1','M2'].includes(milestone)) throw new Error('Expected M1 or M2');
+const revision = process.argv[3] || '';
+if (revision && !/^v[1-9][0-9]*$/.test(revision)) throw new Error('Revision must be v1, v2, ...');
 const skill = process.env.PMR_PRESENTATIONS_SKILL;
 const modules = process.env.PMR_NODE_MODULES;
 const python = process.env.PMR_RUNTIME_PYTHON;
@@ -46,7 +48,7 @@ for (let i=0;i<input.slides.length;i++) {
 }
 const candidate=path.join(out,'candidate.pptx');
 await (await PresentationFile.exportPptx(deck)).save(candidate);
-const finalPath=path.join(root,`deliverables/${milestone}-presentation.pptx`);
+const finalPath=path.join(root,`deliverables/${milestone}-presentation${revision ? '-'+revision : ''}.pptx`);
 const chartSlides=input.slides.flatMap((s,i)=>s.chart?[i+1]:[]);
 await finalizePresentation({workspaceDir:root,candidatePath:candidate,finalPath,pythonExecutable:python,
   integrityValidatorPath:path.join(skill,'container_tools/inspect_presentation_package_integrity.py'),
@@ -55,5 +57,5 @@ await finalizePresentation({workspaceDir:root,candidatePath:candidate,finalPath,
   explicitTotalSlideCount:input.slides.length,requiredNativeChartOwnerSlides:chartSlides,
   materializeLiteralChartWorkbooks:true,
   fontPolicy:{basis:'design',families:[font]},verifyArtifactToolImport:true,
-  receiptPath:path.join(out,'validation.json')});
+  receiptPath:path.join(out,`validation${revision ? '-'+revision : ''}.json`)});
 console.log(JSON.stringify({milestone,slides:input.slides.length,finalPath,font}));

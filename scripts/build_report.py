@@ -6,12 +6,14 @@ from importlib.metadata import version
 
 from persona_memory_ranker.io import read_json, read_csv, write_json
 from persona_memory_ranker.pipeline import verify_evaluation, verify_frozen
+from persona_memory_ranker.metrics import aggregate
 
 root = Path(__file__).resolve().parents[1]
 alignment = read_json(root/"reports/alignment.json")
 manifest = read_json(root/"data/download_manifest.json")
 audit_path = root/"reports/human_audit_status.json"
 audit = read_json(audit_path) if audit_path.exists() else {"status": "not yet queued", "completed": 0}
+paired_results = {}
 lines = ["# Experimental results", "", "All numbers below come from local pipeline artifacts.", "",
          f"- Dataset revision: `{manifest['revision']}`.",
          f"- Aligned population: {alignment['aligned_queries']:,} of {alignment['input_queries']:,} queries; {alignment['excluded_queries']:,} excluded.",
@@ -43,6 +45,27 @@ for split in ("cv", "val", "benchmark"):
     missing = sum(float(methods['rrf']['candidate_recall']) == 0 for methods in by_query.values())
     lines += [f"First-stage limitation: **{missing:,}/{len(by_query):,} questions** have no annotated evidence in the candidate pool.", ""]
     if split != "cv":
+        paired_rows = []
+        for qid, methods in by_query.items():
+            learned = methods['logistic']
+            for comparison in ('semantic', 'rrf', 'logistic_no_position'):
+                baseline = methods[comparison]
+                if learned['persona_id'] != baseline['persona_id']:
+                    raise ValueError("Paired metrics disagree on persona identity")
+                paired_rows.append({'query_id': qid, 'persona_id': learned['persona_id'],
+                    'method': f'logistic minus {comparison}',
+                    **{key: float(learned[key])-float(baseline[key]) for key in
+                       ('recall_at_5', 'mrr_at_10', 'budget_recall', 'candidate_recall')}})
+        differences_summary = aggregate(paired_rows)
+        paired_results[split] = {'source_metrics_sha256': result['output_sha256'][f'reports/{split}_query_metrics.csv'],
+                                 'summary': differences_summary}
+        lines += ["Exploratory paired comparisons use the same 1,000 whole-persona resamples. Positive differences favor logistic. Intervals are unadjusted 95% percentile intervals; comparisons do not change the frozen method selection.", "",
+                  "| Paired comparison | Budget recall difference (percentage points), 95% CI |",
+                  "|---|---:|"]
+        for item in differences_summary:
+            if item['metric'] == 'budget_recall':
+                lines.append(f"| {item['method']} | {100*item['mean']:+.2f} [{100*item['ci_low']:+.2f}, {100*item['ci_high']:+.2f}] |")
+        lines += [""]
         differences = [(float(methods['logistic']['budget_recall'])-float(methods['rrf']['budget_recall']), qid,
                         methods['logistic'], methods['rrf']) for qid, methods in by_query.items()]
         losses = sorted((r for r in differences if r[0] < 0), key=lambda r: (r[0], r[1]))[:3]
@@ -57,7 +80,7 @@ for split in ("cv", "val", "benchmark"):
         if updates.exists():
             lines += ["| Update annotation | Method | Budget recall | Questions |", "|---|---|---:|---:|"]
             for row in read_csv(updates):
-                if row['metric'] == 'budget_recall' and row['method'] in ('rrf','logistic','logistic_no_position','random_forest'):
+                if row['metric'] == 'budget_recall':
                     lines.append(f"| {row['updated']} | {row['method']} | {float(row['mean']):.4f} | {row['queries']} |")
             lines += [""]
 freeze_path = root/"artifacts/frozen_protocol.json"
@@ -67,6 +90,7 @@ if freeze_path.exists():
 lines += ["## Interpretation limits", "", "The data and annotations are synthetic. Unannotated candidates may still support a query. Alignment failures change the evaluated population. These results do not measure downstream answer quality, real-user benefit, or psychological validity. Whole-persona bootstrap intervals account for repeated queries within a persona.", "",
           "The official train/validation CSVs overlap by persona. The project preserves the benchmark, excludes its personas from development, and repairs development splitting before training. Initial system messages containing synthetic profiles are excluded from retrieval.", ""]
 (root/"reports/RESULTS.md").write_text("\n".join(lines), encoding="utf-8")
+write_json(root/"reports/paired_comparisons.json", paired_results)
 write_json(root/"reports/runtime.json", {"python": platform.python_version(), "platform": platform.platform(),
     "data_revision": manifest['revision'],
     "python_packages": {name: version(name) for name in ("numpy", "torch", "sentence-transformers", "transformers", "tokenizers", "huggingface-hub")},

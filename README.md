@@ -6,11 +6,21 @@ This DSCI310 project compares lexical, semantic, hybrid, and R-trained evidence 
 
 The project studies retrieval quality. It does not diagnose personality or establish psychological causality.
 
-- [Interactive evidence explorer](web/index.html)
+- [Live interactive evidence explorer](https://wenyuchiou.github.io/persona-memory-ranker/)
 - [Research protocol](docs/PROTOCOL.md)
 - [M0 proposal](deliverables/M0-proposal.md)
 - [Generated results](reports/RESULTS.md)
 - [Data card](docs/DATA_CARD.md) and [model/interface card](docs/MODEL_CARD.md)
+
+## Measured outcome
+
+On **4,471 aligned benchmark questions from 200 held-out personas**, logistic regression achieved **39.41%** evidence recall at 2,000 tokens, compared with **38.04%** for vector retrieval and **35.48%** for RRF. Logistic was selected on validation before benchmark scoring. The paired persona-bootstrap difference from vector retrieval is **+1.37 percentage points**, with an exploratory 95% interval of **+0.75 to +1.96**.
+
+The benefit has limits: removing position changes mean recall by only 0.25 percentage points, with an interval spanning zero. Logistic trails vector retrieval on update-labelled questions (92.63% vs 93.74%). There are 358 benchmark questions with no annotated evidence in the candidate pool. See the [complete results and failure analysis](reports/RESULTS.md).
+
+![Benchmark evidence recall with 95% persona bootstrap intervals](reports/benchmark-budget-recall.png)
+
+The 100-case **human audit remains pending**. These measurements concern incomplete annotations in synthetic conversations; they do not establish answer quality or real-user benefit.
 
 ## A consequential data-cleaning finding
 
@@ -52,7 +62,7 @@ python scripts/export_models.py
 python scripts/build_demo.py --split benchmark
 ```
 
-The script downloads pinned source files, calls R cleaning, aligns evidence, builds development features, trains R models, checks R/Python parity, evaluates validation, freezes the protocol, and finally evaluates the benchmark. A subset cannot unlock the benchmark. Freeze manifests reject changes to data, models, or research code. Downloads and embedding caches are reused by content identity.
+The script downloads pinned source files, calls R cleaning, aligns evidence, builds development features, trains R models, checks R/Python parity, evaluates validation, freezes the protocol, and finally evaluates the benchmark. A subset cannot unlock the benchmark. Freeze manifests reject changes to data, models, or research code. Downloads and embedding caches are reused by content identity. Git attributes preserve the exact line-ending bytes of protocol sources, metric tables and portable model files so their recorded hashes survive cross-platform checkouts.
 
 Grouped out-of-fold predictions are evaluated separately as `cv`, using the full training-query gold denominators. Reports, notebooks, slides and the demo verify saved evaluation inputs and metric-table hashes before displaying results. Regenerating an audit queue refuses to overwrite any entered reviewer fields.
 

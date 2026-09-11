@@ -22,6 +22,12 @@ library(knitr)
 knitr::opts_chunk$set(echo = TRUE, warning = TRUE, message = FALSE,
                       fig.width = 8, fig.height = 4.6, dpi = 110)
 theme_set(theme_minimal(base_size = 12))
+show_table <- function(data, ...) {
+  cat('<div class="table-responsive">',
+      as.character(knitr::kable(data, format = "html",
+                               table.attr = 'class="table table-condensed"', ...)),
+      "</div>\n\n")
+}
 read_optional <- function(relative) {
   path <- file.path(root, relative)
   if (file.exists(path)) pmr_read_csv(path) else NULL
@@ -92,12 +98,13 @@ rows. It fails on persona leakage, conflicting duplicate questions, or role
 wrappers in queries. The gold annotation is used for alignment and evaluation,
 and never becomes a ranking feature.
 
-```{r cleaning-summary}
+```{r cleaning-summary, results='asis'}
 if (!is.null(cleaning)) {
-  kable(data.frame(stage = c("Input", "Retained", "Excluded"),
-                   rows = c(cleaning$input_rows, cleaning$output_rows, cleaning$excluded_rows)))
+  show_table(data.frame(stage = c("Input", "Retained", "Excluded"),
+                   rows = c(cleaning$input_rows, cleaning$output_rows, cleaning$excluded_rows)),
+             caption = "Data-cleaning counts")
   if (length(cleaning$reason_counts)) {
-    kable(data.frame(reason = names(cleaning$reason_counts),
+    show_table(data.frame(reason = names(cleaning$reason_counts),
                      rows = as.integer(unlist(cleaning$reason_counts))))
   }
 } else {
@@ -107,7 +114,7 @@ partition <- aggregate(query_id ~ split, queries, length)
 names(partition)[2] <- "questions"
 partition$personas <- vapply(partition$split, function(s)
   length(unique(queries$persona_id[queries$split == s])), integer(1))
-kable(partition)
+show_table(partition)
 persona_splits <- split(queries$split, queries$persona_id)
 stopifnot(all(vapply(persona_splits, function(x) length(unique(x)) == 1L, logical(1))))
 ggplot(partition, aes(split, questions, fill = split)) +
@@ -122,7 +129,7 @@ not a tokenizer count. Different persona histories can create different numbers
 of candidate memories, so aggregate row counts should not replace per-query
 retrieval evaluation.
 
-```{r query-distributions}
+```{r query-distributions, results='asis'}
 queries$query_characters <- nchar(queries$query, type = "chars")
 ggplot(queries, aes(query_characters, fill = split)) +
   geom_histogram(bins = 30, alpha = 0.55, position = "identity") +
@@ -133,7 +140,7 @@ ggplot(persona_counts, aes(split, query_id, color = split)) +
   geom_boxplot(show.legend = FALSE) + labs(x = NULL, y = "Questions per persona")
 topic_counts <- sort(table(queries$topic_query), decreasing = TRUE)
 topic <- data.frame(topic = names(topic_counts), questions = as.integer(topic_counts))
-kable(head(topic, 15), caption = "Most frequent supplied topic labels")
+show_table(head(topic, 15), caption = "Most frequent supplied topic labels")
 ```
 
 # Alignment and update annotations
@@ -145,9 +152,9 @@ relevant to an update, but later order alone does not prove that an earlier fact
 was corrected. The no-position ablation checks how much the model depends on
 this proxy.
 
-```{r alignment-coverage}
+```{r alignment-coverage, results='asis'}
 if (!is.null(alignment)) {
-  kable(as.data.frame(table(alignment$split, alignment$status)),
+  show_table(as.data.frame(table(alignment$split, alignment$status)),
         caption = "Alignment status by partition; zero-count combinations are shown")
   if ("gold_relative_position" %in% names(alignment)) {
     alignment$gold_relative_position <- suppressWarnings(as.numeric(alignment$gold_relative_position))
@@ -162,7 +169,7 @@ if (!is.null(alignment)) {
   if (file.exists(alignment_json)) print(fromJSON(alignment_json)) else
     cat("Alignment report is not available yet. Run alignment before interpreting coverage.\n")
 }
-kable(as.data.frame(table(queries$split, queries$updated)),
+show_table(as.data.frame(table(queries$split, queries$updated)),
       caption = "Supplied update annotation by partition")
 ```
 
@@ -196,7 +203,7 @@ and is recorded in `training_report.json`. Validation predictions come from mode
 fitted to the complete training partition. Benchmark features are scored later
 using frozen models; the training program does not read benchmark files.
 
-```{r feature-distributions}
+```{r feature-distributions, results='asis'}
 features <- c("bm25", "semantic", "overlap", "log_length", "position")
 if (!is.null(train) && !is.null(val)) {
   train$partition <- "train"
@@ -208,9 +215,9 @@ if (!is.null(train) && !is.null(val)) {
   print(ggplot(long, aes(value, fill = partition)) +
     geom_histogram(bins = 30, position = "identity", alpha = 0.5) +
     facet_wrap(~ feature, scales = "free") + labs(x = "Feature value", y = "Candidate rows"))
-  kable(as.data.frame(table(feature_data$partition, feature_data$label)),
+  show_table(as.data.frame(table(feature_data$partition, feature_data$label)),
         caption = "Observed candidate labels: zero means unannotated, not verified irrelevant")
-  kable(round(cor(data.frame(lapply(train[features], as.numeric))), 3),
+  show_table(round(cor(data.frame(lapply(train[features], as.numeric))), 3),
         caption = "Training-only feature correlations")
 } else {
   cat("Training/validation feature tables are not available yet.\n")
@@ -227,9 +234,9 @@ interpret results for updated questions separately when enough examples exist.
 Grouped out-of-fold predictions support development comparisons without scoring a
 persona using a model trained on its own candidates.
 
-```{r retrieval-results}
+```{r retrieval-results, results='asis'}
 if (!is.null(metrics) && nrow(metrics)) {
-  kable(head(metrics, 20), caption = "First computed per-query metric rows")
+  show_table(head(metrics, 20), caption = "First computed per-query metric rows")
   numeric_names <- setdiff(names(metrics), c("query_id", "persona_id", "split", "method", "updated", "topic_query"))
   numeric_names <- numeric_names[vapply(metrics[numeric_names], function(x)
     all(is.finite(suppressWarnings(as.numeric(x)))), logical(1))]
@@ -238,7 +245,7 @@ if (!is.null(metrics) && nrow(metrics)) {
     values[numeric_names] <- lapply(values[numeric_names], as.numeric)
     groups <- intersect(c("split", "method"), names(values))
     summary <- aggregate(values[numeric_names], values[groups], mean)
-    kable(summary, digits = 4, caption = "Unweighted means over reported queries")
+    show_table(summary, digits = 4, caption = "Unweighted means over reported queries")
   }
   summaries <- lapply(c("cv", "val", "benchmark"), function(s) {
     table <- read_optional(paste0("reports/", s, "_summary.csv"))

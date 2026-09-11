@@ -138,6 +138,15 @@ if (requireNamespace("rmarkdown", quietly = TRUE) && rmarkdown::pandoc_available
     output_dir = temporary, params = list(project_root = temporary),
     envir = new.env(parent = globalenv()), quiet = TRUE)
   stopifnot(file.exists(html), file.info(html)$size > 10000L)
+  rendered_html <- paste(readLines(html, warn = FALSE, encoding = "UTF-8"), collapse = "\n")
+  caption_tags <- regmatches(rendered_html,
+    gregexpr("(?s)<caption[^>]*>.*?</caption>", rendered_html, perl = TRUE))[[1]]
+  rendered_captions <- trimws(gsub("\\s+", " ", gsub("<[^>]+>", "", caption_tags), perl = TRUE))
+  for (caption in c("Data-cleaning counts",
+                    "Alignment status by partition; zero-count combinations are shown",
+                    "Observed candidate labels: zero means unannotated, not verified irrelevant")) {
+    if (!caption %in% rendered_captions) stop("Missing rendered table caption: ", caption)
+  }
   cat("PASS: reproducible EDA notebook renders to HTML from synthetic fixtures.\n")
   pmr_write_csv(data.frame(method = "logistic", budget_recall = 0.9),
                 file.path(temporary, "reports/benchmark_summary.csv"))
