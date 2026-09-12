@@ -1,0 +1,19 @@
+{
+  "artifact_hashes_verified": 16,
+  "human_ratings_blank": 800,
+  "practice_ratings_blank": 80,
+  "source_ci": "https://github.com/WenyuChiou/persona-memory-ranker/actions/runs/34678885976",
+  "source_ci_result": "Python/web and R passed",
+  "visual_checks": [
+    "M1 12 slides and M2 16 slides contact sheets reviewed; native charts and PNG diagrams readable.",
+    "Mobile graph uses a 900px horizontal scroll region within 390px viewport; document width 375px; no page overflow.",
+    "Demo method A shows no memory; B/C/D show changed IDs or scores; ten-class disclosure works; case selection changes target.",
+    "Offline formal rating page shows 100 cases, four anonymous answers, and blank ratings. No ratings entered."
+  ],
+  "cli_fixture": {
+    "selected": 3,
+    "memory_bytes": 1844,
+    "purpose": "Interface contract, not persona-quality evidence"
+  },
+  "human_effects": "pending"
+}

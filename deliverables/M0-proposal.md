@@ -2,12 +2,14 @@
 
 **Name:** Wenyu Chiou
 
-**Project Title:** Learning to Retrieve Relevant Memories for AI Personas
+**Project Title:** Persona Memory Selector: Classifying Behavioral Exemplars for Consistent AI Role-Playing
 
 **Project Abstract**
 
-This project investigates whether classical machine learning can improve evidence retrieval for personalized AI agents under a fixed context budget. Using the public PersonaMem-v2 text dataset, we will clean conversation histories, align annotated supporting evidence with source messages, and explore retrieval patterns across query types and preference updates. Logistic regression and random forest models will predict evidence relevance using lexical, semantic, and conversational-position features. We will compare their rankings with lexical, vector, and hybrid retrieval baselines using persona-separated evaluation. The deliverables will include reproducible R analyses, an interactive evidence explorer, and a reusable scoring interface for persona memory systems. Because the dataset is synthetic, conclusions will concern retrieval performance rather than psychological validity.
+This project tests whether classified behavioral examples help an AI maintain a specified persona when answering new situations. Using the labeled BIG5-CHAT synthetic dialogue dataset, we will clean source records, isolate related scenarios across data splits, and train multinomial logistic regression and random forest models in R. We will compare a fixed persona prompt, vector retrieval, classification-aware flat retrieval, and graph retrieval under a shared context budget. Two locally hosted language models and blinded human ratings will evaluate behavioral consistency, voice, relevance, and fabricated personal history. Deliverables include reproducible R analyses, a source-linked interactive demo, and a reusable memory-selection interface. The study evaluates a component for persona applications rather than diagnosing human personality.
 
-**Data Source:** [PersonaMem-v2](https://huggingface.co/datasets/bowen-upenn/PersonaMem-v2), text benchmark and 32k conversation histories. CC BY 4.0. Revision `ed956dea41521fc4499acbc63f966e0fd3c053ba`.
+**Data Source:** [BIG5-CHAT](https://huggingface.co/datasets/wenkai-li/big5_chat), Apache-2.0 according to the official dataset card. Revision `adf1cd37997b498ff7b220827eaacdeb8aa6d905`.
 
-The Chrome form was filled and saved as a draft. Submission has not been performed.
+**白話摘要：** 同一個 AI 套用同一份人格設定後，我們讓它取用不同方法挑選的行為範例，比較它是否更能維持角色的立場與語氣。課堂重點是資料清理、分類模型與公平的實驗比較。公開對話是參考範例，不能冒充角色親身經歷。
+
+**Submission status:** This file is updated. The earlier Chrome form draft may contain the previous proposal; this implementation has not submitted a form.

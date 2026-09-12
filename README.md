@@ -1,4 +1,34 @@
-# Persona Memory Ranker
+# Persona Memory Selector
+
+The current DSCI310 study classifies BIG5-CHAT behavioral exemplars and compares fixed-prompt, vector, flat classifier, and graph selection.
+
+- [Current protocol and data workflow](docs/SELECTOR_PROTOCOL.md)
+- [New interactive demo](https://wenyuchiou.github.io/persona-memory-ranker/selector/)
+- [白話資料處理步驟](deliverables/selector/DATA_WALKTHROUGH.md)
+- [Portable model and application interface](docs/SELECTOR_MODEL_CARD.md)
+- [Course and blind-review materials](deliverables/selector/README.md)
+- [Current M0 proposal](deliverables/M0-proposal.md)
+
+The frozen test contains 14,577 records from held-out scenario groups. Response-only logistic achieved **58.8% Macro-F1**, compared with **58.2%** for TF-IDF logistic. All 500 local responses completed; **human persona-quality ratings remain pending (0/800)**. See the [measured results](reports/selector/RESULTS.md).
+
+The reusable interface is `pms retrieve --input examples/selector_request.json`. It returns original examples, classification scores and source references for the supplied persona target.
+
+For a fresh local study on Windows:
+
+```powershell
+python -m pip install -e ".[encoder,test]"
+Rscript R/bootstrap.R
+Rscript R/selector/bootstrap.R
+powershell -File scripts/run_selector.ps1 -Generate
+Rscript R/selector/render.R
+```
+
+R must be installed; the wrapper also discovers standard Windows R installations if `Rscript` is not on PATH. Generation requires the already installed local Ollama models `qwen2.5:7b` and `llama3.1:8b`. It uses no paid API. A frozen run verifies its inputs and reuses matching response caches. Human ratings remain pending until the two reviewers fill their files; generating answers does not complete that evaluation.
+
+## Preserved PersonaMem-v2 retrieval study
+
+The results below belong to the earlier evidence-retrieval study. They are not personality-quality results.
+
 
 **Which memories should an AI persona retrieve for its next answer?**
 
@@ -8,7 +38,7 @@ The project studies retrieval quality. It does not diagnose personality or estab
 
 - [Live interactive evidence explorer](https://wenyuchiou.github.io/persona-memory-ranker/)
 - [Research protocol](docs/PROTOCOL.md)
-- [M0 proposal](deliverables/M0-proposal.md)
+- [Original M0 proposal](deliverables/legacy/M0-proposal.md)
 - [Generated results](reports/RESULTS.md)
 - [Data card](docs/DATA_CARD.md) and [model/interface card](docs/MODEL_CARD.md)
 

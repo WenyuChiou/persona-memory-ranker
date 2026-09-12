@@ -1,0 +1,40 @@
+{
+  "weights": {
+    "C": 0.75,
+    "D": 0.25
+  },
+  "validation_scores": [
+    {
+      "method": "C",
+      "weight": 0.25,
+      "proxy": 0.5645971069037913
+    },
+    {
+      "method": "C",
+      "weight": 0.5,
+      "proxy": 0.5825042079091072
+    },
+    {
+      "method": "C",
+      "weight": 0.75,
+      "proxy": 0.5836224289536476
+    },
+    {
+      "method": "D",
+      "weight": 0.25,
+      "proxy": 0.5770306178331375
+    },
+    {
+      "method": "D",
+      "weight": 0.5,
+      "proxy": 0.5717396268546581
+    },
+    {
+      "method": "D",
+      "weight": 0.75,
+      "proxy": 0.5704220144450665
+    }
+  ],
+  "queries": 100,
+  "selection_metric": "mean(0.5 known generation-label compatibility + 0.5 cosine); weak proxy, not human relevance"
+}

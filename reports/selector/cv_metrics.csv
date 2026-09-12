@@ -1,0 +1,17 @@
+"candidate","alpha","lambda","mtry","min_node_size","cv_macro_f1"
+"context_glmnet",0,0.01,,,0.389553646932658
+"context_glmnet",1,0.01,,,0.25321824767639
+"context_glmnet",0,0.1,,,0.348063771255435
+"context_glmnet",1,0.1,,,0.0461594418207237
+"context_rf",,,24,10,0.253744095374944
+"context_rf",,,48,50,0.259179967089562
+"response_glmnet",0,0.01,,,0.579117625403599
+"response_glmnet",1,0.01,,,0.454559659695667
+"response_glmnet",0,0.1,,,0.533543193899927
+"response_glmnet",1,0.1,,,0.0461594418207237
+"response_rf",,,24,10,0.433489348212274
+"response_rf",,,48,50,0.432777193712394
+"tfidf_glmnet",0,0.01,,,0.561581432115122
+"tfidf_glmnet",1,0.01,,,0.480077519463163
+"tfidf_glmnet",0,0.1,,,0.559630939183914
+"tfidf_glmnet",1,0.1,,,0.10630307194234

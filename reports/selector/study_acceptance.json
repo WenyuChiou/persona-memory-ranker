@@ -1,0 +1,28 @@
+{
+  "val": {
+    "groups": 10,
+    "answers": 40,
+    "valid_completions": 40,
+    "invalid_completions": 0,
+    "maximum_memory_bytes": 1983,
+    "original_sources_and_group_isolation": true
+  },
+  "test": {
+    "groups": 100,
+    "answers": 400,
+    "valid_completions": 400,
+    "invalid_completions": 0,
+    "maximum_memory_bytes": 2000,
+    "original_sources_and_group_isolation": true
+  },
+  "test-diagnostics": {
+    "groups": 20,
+    "answers": 60,
+    "valid_completions": 60,
+    "invalid_completions": 0,
+    "maximum_memory_bytes": 1999,
+    "original_sources_and_group_isolation": true
+  },
+  "blind_export": "Exact answer text; method keys absent from blinded JSON",
+  "human_ratings": "Not created or judged by this audit"
+}

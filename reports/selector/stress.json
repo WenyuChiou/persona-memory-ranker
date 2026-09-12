@@ -1,0 +1,19 @@
+{
+  "n_groups": 200,
+  "masked_changed_rows": 0,
+  "scope": "Frozen logistic-only diagnostics on200 test groups; no model selection",
+  "variants": {
+    "anonymized": {
+      "macro_f1": 0.6187106183896942,
+      "accuracy": 0.62
+    },
+    "original_names": {
+      "macro_f1": 0.5843367304378762,
+      "accuracy": 0.59
+    },
+    "masked_direct_self_description": {
+      "macro_f1": 0.6187106183896942,
+      "accuracy": 0.62
+    }
+  }
+}

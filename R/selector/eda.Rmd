@@ -23,7 +23,8 @@ if (!all(file.exists(c(raw_path, manifest_path, cleaning_path))))
   stop("The official BIG5-CHAT CSV, source manifest, and cleaning report are required.")
 manifest <- jsonlite::fromJSON(manifest_path)
 cleaning <- jsonlite::fromJSON(cleaning_path)
-raw_rows <- nrow(pmr_read_csv(raw_path))
+raw <- pmr_read_csv(raw_path)
+raw_rows <- nrow(raw)
 raw_bytes <- file.info(raw_path)$size
 raw_sha256 <- digest::digest(raw_path, algo = "sha256", file = TRUE, serialize = FALSE)
 if (!identical(raw_sha256, manifest$sha256)) stop("BIG5-CHAT SHA-256 disagrees with source_manifest.json.")
@@ -53,6 +54,23 @@ knitr::kable(raw_table, digits = 0,
 ```
 
 ## Prepared classifier table
+
+This R preprocessing step reconstructs the missing-text exclusions directly from the raw file. It also selects the allowed classroom analysis fields explicitly, leaving out `train_instruction`, which contains the requested personality label. The transitive scenario grouping is implemented separately in Python and audited below.
+
+```{r raw-cleaning}
+pmr_require_columns(raw, c("train_input", "train_output", "trait", "level", "original_index"))
+has_input <- pmr_nonempty(raw$train_input)
+has_response <- pmr_nonempty(raw$train_output)
+clean_text <- raw[has_input & has_response,
+                  c("original_index", "train_input", "train_output", "trait", "level")]
+clean_text$label <- paste(clean_text$trait, clean_text$level, sep = "_")
+if (nrow(clean_text) != cleaning$kept_rows || any(!clean_text$label %in% SELECTOR_CLASSES))
+  stop("R missing-text cleaning disagrees with the prepared table.")
+knitr::kable(data.frame(check = c("Missing input", "Missing response", "Missing both", "Excluded union", "Retained"),
+                       rows = c(sum(!has_input), sum(!has_response), sum(!has_input & !has_response),
+                                sum(!has_input | !has_response), nrow(clean_text))),
+             caption = "R reconstructs missing-value exclusions without imputation")
+```
 
 ```{r prepared-summary}
 prepared <- as.data.frame(xtabs(~ split + role, rows))
@@ -110,3 +128,38 @@ if (file.exists(metrics_path)) {
 ```
 
 Test labels are not read or summarized as model results here. The separate evaluation entry point remains locked until a hash-pinned frozen marker exists.
+
+## Which validation labels are confused?
+
+The following chart uses only validation predictions from the selected offline classifier. Rows are generation targets; columns are predictions. Colors show the fraction within each target class, and the printed values are record counts. A/C/E/N/O stand for agreeableness, conscientiousness, extraversion, neuroticism, and openness; + and - mean high and low.
+
+```{r validation-confusion, fig.width=9, fig.height=7, results='asis'}
+probability_path <- file.path(root, "artifacts", "selector", "val_probabilities.csv")
+if (file.exists(probability_path)) {
+  saved <- pmr_read_csv(probability_path)
+  pmr_require_columns(saved, c("row_id", SELECTOR_CLASSES))
+  expected <- rows[rows$split == "val", ]
+  if (anyDuplicated(saved$row_id) || !setequal(saved$row_id, expected$row_id))
+    stop("Validation predictions do not match validation row identities.")
+  saved <- saved[match(expected$row_id, saved$row_id), ]
+  probability <- as.matrix(saved[SELECTOR_CLASSES]); storage.mode(probability) <- "double"
+  predicted <- selector_classify(probability)
+  counts <- table(factor(expected$label, levels = SELECTOR_CLASSES),
+                  factor(predicted, levels = SELECTOR_CLASSES))
+  fractions <- sweep(counts, 1L, rowSums(counts), "/")
+  labels <- c("A+", "A-", "C+", "C-", "E+", "E-", "N+", "N-", "O+", "O-")
+  image(1:10, 1:10, t(fractions)[, 10:1], axes = FALSE,
+        col = colorRampPalette(c("#F7FBFC", "#A4D9D0", "#287F85"))(50),
+        xlab = "Predicted target", ylab = "Generation target",
+        main = "Validation confusion: errors are not equally distributed")
+  axis(1, at = 1:10, labels = labels); axis(2, at = 1:10, labels = rev(labels), las = 1)
+  text(rep(1:10, 10), rep(1:10, each = 10), labels = as.vector(t(counts)[, 10:1]), cex = .8)
+  tables <- selector_evaluation_tables(list(selected = probability), expected$label, "selected", "selected")
+  print(knitr::kable(tables$per_class[c("class", "support", "precision", "recall", "f1")], digits = 3, format = "html",
+               caption = "Validation precision and recall by generation target"))
+  print(knitr::kable(tables$confidence[c("confidence_bin", "count", "mean_confidence", "accuracy")], digits = 3, format = "html",
+               caption = "Classifier confidence versus observed validation accuracy"))
+} else {
+  cat("Validation predictions are pending; no confusion pattern is inferred.")
+}
+```

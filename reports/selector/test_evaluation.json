@@ -1,0 +1,6 @@
+{
+  "selected_model": "response_glmnet",
+  "deployed_model": "response_glmnet",
+  "n_test": 14577,
+  "candidates": ["context_glmnet", "context_rf", "response_glmnet", "response_rf", "tfidf_glmnet"]
+}

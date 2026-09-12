@@ -15,3 +15,6 @@ deliverables/video/
 .Rhistory
 .RData
 .chart-data-*/
+
+# Local blind-rating material stays off the public demo/repository.
+deliverables/selector/review/

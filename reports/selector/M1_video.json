@@ -1,0 +1,81 @@
+{
+  "path": "deliverables/video/selector/M1-presentation.mp4",
+  "duration_seconds": 600.212647,
+  "target_seconds": 600,
+  "voice": "Microsoft David Desktop (synthetic)",
+  "tempo_adjustment": 1.1739367714776634,
+  "slides": [
+    {
+      "slide": 1,
+      "title": "Persona Memory Selector",
+      "start_seconds": 0,
+      "duration_seconds": 48.47147524443925
+    },
+    {
+      "slide": 2,
+      "title": "The deadline example",
+      "start_seconds": 48.47147524443925,
+      "duration_seconds": 43.748718333927485
+    },
+    {
+      "slide": 3,
+      "title": "Ten labels from five traits",
+      "start_seconds": 92.22019357836673,
+      "duration_seconds": 46.69946583938282
+    },
+    {
+      "slide": 4,
+      "title": "One record, two different speakers",
+      "start_seconds": 138.91965941774956,
+      "duration_seconds": 48.215653970843746
+    },
+    {
+      "slide": 5,
+      "title": "Cleaning results",
+      "start_seconds": 187.13531338859332,
+      "duration_seconds": 45.14955187109494
+    },
+    {
+      "slide": 6,
+      "title": "Keeping related scenarios together",
+      "start_seconds": 232.28486525968827,
+      "duration_seconds": 51.71192404238576
+    },
+    {
+      "slide": 7,
+      "title": "How text becomes model input",
+      "start_seconds": 283.99678930207403,
+      "duration_seconds": 47.342031110637166
+    },
+    {
+      "slide": 8,
+      "title": "Classifying generation labels",
+      "start_seconds": 331.3388204127112,
+      "duration_seconds": 66.9665241495609
+    },
+    {
+      "slide": 9,
+      "title": "Four controlled comparisons",
+      "start_seconds": 398.30534456227207,
+      "duration_seconds": 49.62993201403868
+    },
+    {
+      "slide": 10,
+      "title": "The graph and the prompt",
+      "start_seconds": 447.93527657631074,
+      "duration_seconds": 50.1532787691
+    },
+    {
+      "slide": 11,
+      "title": "Measuring the answers",
+      "start_seconds": 498.0885553454107,
+      "duration_seconds": 51.719997731046234
+    },
+    {
+      "slide": 12,
+      "title": "What this project can establish",
+      "start_seconds": 549.808553076457,
+      "duration_seconds": 50.191446923542934
+    }
+  ]
+}
