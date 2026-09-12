@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Persona Memory Selector</title><link rel="stylesheet" href="styles.css"></head>
+<body><header><p>DSCI310 · 可檢驗的人格記憶模組</p><h1>同一個角色，如何挑選行為範例？</h1><p class="intro">固定人格設定，依序比較向量檢索、人格分類與圖譜。點選一個情境，查看實際取回的原文及本機 AI 回答。</p></header>
+<main><section aria-label="研究狀態"><p id="status" class="notice"></p><div id="metrics"></div><p>資料是具有指定人格表現的合成對話。範例可以影響回答方式，但不是角色本人的經歷。</p></section>
+<section><label for="case">驗證情境</label><select id="case"></select><p id="trait"></p><blockquote id="query"></blockquote></section>
+<section><h2>四種方法的實際回答</h2><div id="answers" class="answers"></div></section>
+<section><h2>記憶與來源</h2><p>選擇上方方法，查看它取回的記憶。下圖摘要呈現選中的範例、情境類群與特質分數；不是完整 PageRank 計算圖，也不表示心理因果。</p><svg id="graph" viewBox="0 0 900 380" role="img" aria-label="情境、範例與特質的連結"></svg><div id="memories"></div></section>
+<section><h2>怎麼判斷是否有幫助？</h2><p>分類分數表示對生成標籤的辨識。人格效果另外由兩位評分者，分別評估立場、語氣、情境相關性和捏造經歷。這個 Demo 只展示驗證集，正式盲評題不在此公開。</p><p><a href="https://github.com/WenyuChiou/persona-memory-ranker/blob/main/docs/SELECTOR_PROTOCOL.md">研究方法</a> · <a href="../index.html">舊版資訊檢索研究</a> · <a href="https://huggingface.co/datasets/wenkai-li/big5_chat">官方資料</a></p></section></main>
+<script src="data.js"></script><script src="app.js"></script></body></html>

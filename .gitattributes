@@ -9,3 +9,12 @@ reports/*.csv -text diff
 reports/*.html -text
 deliverables/*.html -text
 web/demo-data.js -text diff
+src/persona_memory_selector/*.py -text diff
+R/selector/*.R -text diff
+models/selector/*.json -text diff
+artifacts/selector/clusters.json -text diff
+artifacts/selector/weights.json -text diff
+reports/selector/*.json -text diff
+reports/selector/*.csv -text diff
+reports/selector/*.html -text
+web/selector/data.js -text diff

@@ -15,6 +15,7 @@ encoder = ["sentence-transformers>=3,<6"]
 
 [project.scripts]
 pmr = "persona_memory_ranker.cli:main"
+pms = "persona_memory_selector.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

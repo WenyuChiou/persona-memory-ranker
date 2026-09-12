@@ -41,7 +41,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install --yes --no-install-recommends libuv1-dev
       - run: Rscript R/bootstrap.R
+      - run: Rscript R/selector/bootstrap.R
       - run: Rscript tests/test_r_pipeline.R
+      - run: Rscript tests/test_selector_r.R
+      - run: Rscript tests/test_selector_resume.R
 
   pages:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'

@@ -1,4 +1,5 @@
 .venv/
+.venv-selector/
 .Rlib/
 __pycache__/
 .pytest_cache/
