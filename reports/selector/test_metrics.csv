@@ -1,0 +1,6 @@
+"candidate","selected","deployed","n","macro_f1"
+"context_glmnet",FALSE,FALSE,14577,0.399174050810951
+"context_rf",FALSE,FALSE,14577,0.261023529946361
+"response_glmnet",TRUE,TRUE,14577,0.587755523965254
+"response_rf",FALSE,FALSE,14577,0.446014710941774
+"tfidf_glmnet",FALSE,FALSE,14577,0.582051420558616

@@ -1,0 +1,28 @@
+{
+  "feature_spec": {
+    "encoder": "sentence-transformers/all-MiniLM-L6-v2",
+    "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "window_tokens": 224,
+    "window_overlap": 32,
+    "pooling": "window-mean-then-l2-v1",
+    "dtype": "float32"
+  },
+  "runtime": "torch2.9.1+cpu",
+  "provenance_upgrade": {
+    "context": {
+      "rows": 99656,
+      "sample_max_error": 1.0989606380462646e-07,
+      "sha256": "f8e37504e8eaf62faffcb7d84af3050589cb5998f09534ddbc9ba05f55f45dc3"
+    },
+    "response": {
+      "rows": 99656,
+      "sample_max_error": 1.1920928955078125e-07,
+      "sha256": "ca0a762b837bc9a48b8681ac4d3535240d34423602e0d9d7b7c8a62d0bf1a7d8"
+    },
+    "situation": {
+      "rows": 99656,
+      "sample_max_error": 1.2665987014770508e-07,
+      "sha256": "e00bdfb2f657cc1aa2ca48c9e2f31ef7452f3d520b029128ba71b80272f59d30"
+    }
+  }
+}

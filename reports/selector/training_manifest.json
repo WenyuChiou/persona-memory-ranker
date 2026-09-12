@@ -1,0 +1,10 @@
+{
+  "schema_version": "selector-training-manifest-v1",
+  "artifact_hashes": {
+    "data/processed/selector/rows.csv": "e2e979f06a1b32a143cc41a5c37cdd4fd26bb0fecc624fdfdad287d1c0a26cdb",
+    "artifacts/selector/features_context.csv": "f8e37504e8eaf62faffcb7d84af3050589cb5998f09534ddbc9ba05f55f45dc3",
+    "artifacts/selector/features_response.csv": "ca0a762b837bc9a48b8681ac4d3535240d34423602e0d9d7b7c8a62d0bf1a7d8",
+    "artifacts/selector/features_situation.csv": "e00bdfb2f657cc1aa2ca48c9e2f31ef7452f3d520b029128ba71b80272f59d30",
+    "artifacts/selector/model_bundle.rds": "7f9b4451ae9970333c186b601bef29404c3d1900eec9b76689228b9b076403ce"
+  }
+}

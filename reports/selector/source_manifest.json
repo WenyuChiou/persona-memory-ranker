@@ -1,0 +1,7 @@
+{
+  "url": "https://huggingface.co/datasets/wenkai-li/big5_chat/resolve/adf1cd37997b498ff7b220827eaacdeb8aa6d905/big5_chat_dataset.csv",
+  "revision": "adf1cd37997b498ff7b220827eaacdeb8aa6d905",
+  "sha256": "1a3a81cac3d12f864c6f2926254fcfb379eb6270f6d45652cf5291dadddb206b",
+  "license": "Apache-2.0 (official dataset card)",
+  "bytes": 88551712
+}

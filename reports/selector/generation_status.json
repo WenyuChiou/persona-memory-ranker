@@ -1,0 +1,20 @@
+{
+  "val": {
+    "groups": 10,
+    "answers": 40,
+    "valid_completions": 40,
+    "invalid_completions": 0
+  },
+  "test": {
+    "groups": 100,
+    "answers": 400,
+    "valid_completions": 400,
+    "invalid_completions": 0
+  },
+  "test-diagnostics": {
+    "groups": 20,
+    "answers": 60,
+    "valid_completions": 60,
+    "invalid_completions": 0
+  }
+}

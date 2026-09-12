@@ -1,0 +1,12 @@
+{
+  "selection_metric": "validation_macro_f1",
+  "chosen_model": "response_glmnet",
+  "deployed_model": "response_glmnet",
+  "candidates": {
+    "context_glmnet": 0.396890952486291,
+    "context_rf": 0.269713575759618,
+    "response_glmnet": 0.582924908618841,
+    "response_rf": 0.445229048500253,
+    "tfidf_glmnet": 0.580237901528125
+  }
+}

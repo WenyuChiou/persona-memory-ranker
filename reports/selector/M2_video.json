@@ -1,0 +1,105 @@
+{
+  "path": "deliverables/video/selector/M2-presentation.mp4",
+  "duration_seconds": 900.212647,
+  "target_seconds": 900,
+  "voice": "Microsoft David Desktop (synthetic)",
+  "tempo_adjustment": 1.0389546381278538,
+  "slides": [
+    {
+      "slide": 1,
+      "title": "Persona Memory Selector",
+      "start_seconds": 0,
+      "duration_seconds": 54.574061153778956
+    },
+    {
+      "slide": 2,
+      "title": "The deadline example",
+      "start_seconds": 54.574061153778956,
+      "duration_seconds": 49.237718452628485
+    },
+    {
+      "slide": 3,
+      "title": "Why scenario context matters",
+      "start_seconds": 103.81177960640744,
+      "duration_seconds": 53.41839953397661
+    },
+    {
+      "slide": 4,
+      "title": "Evidence from earlier research",
+      "start_seconds": 157.23017914038405,
+      "duration_seconds": 52.595794803571785
+    },
+    {
+      "slide": 5,
+      "title": "Ten labels from five traits",
+      "start_seconds": 209.82597394395583,
+      "duration_seconds": 52.57183033093142
+    },
+    {
+      "slide": 6,
+      "title": "One record, two different speakers",
+      "start_seconds": 262.3978042748872,
+      "duration_seconds": 54.28500329795075
+    },
+    {
+      "slide": 7,
+      "title": "Cleaning results",
+      "start_seconds": 316.682807572838,
+      "duration_seconds": 50.820549829139104
+    },
+    {
+      "slide": 8,
+      "title": "Keeping related scenarios together",
+      "start_seconds": 367.5033574019771,
+      "duration_seconds": 58.23551263625636
+    },
+    {
+      "slide": 9,
+      "title": "How text becomes model input",
+      "start_seconds": 425.7388700382335,
+      "duration_seconds": 53.297878391469716
+    },
+    {
+      "slide": 10,
+      "title": "Classifying unseen situations",
+      "start_seconds": 479.0367484297032,
+      "duration_seconds": 75.08683064138903
+    },
+    {
+      "slide": 11,
+      "title": "Four controlled comparisons",
+      "start_seconds": 554.1235790710922,
+      "duration_seconds": 55.88302590555154
+    },
+    {
+      "slide": 12,
+      "title": "The graph and the prompt",
+      "start_seconds": 610.0066049766438,
+      "duration_seconds": 56.474366448683504
+    },
+    {
+      "slide": 13,
+      "title": "Measuring the answers",
+      "start_seconds": 666.4809714253273,
+      "duration_seconds": 58.244635267459074
+    },
+    {
+      "slide": 14,
+      "title": "Transfer and uncertainty",
+      "start_seconds": 724.7256066927864,
+      "duration_seconds": 58.52430772796572
+    },
+    {
+      "slide": 15,
+      "title": "Integration and the next evidence",
+      "start_seconds": 783.2499144207521,
+      "duration_seconds": 60.23259212736756
+    },
+    {
+      "slide": 16,
+      "title": "What this project can establish",
+      "start_seconds": 843.4825065481197,
+      "duration_seconds": 56.517493451880426
+    }
+  ]
+}

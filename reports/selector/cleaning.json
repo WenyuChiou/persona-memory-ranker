@@ -1,0 +1,55 @@
+{
+  "raw_rows": 100000,
+  "kept_rows": 99656,
+  "excluded_rows": 344,
+  "missing_input": 294,
+  "missing_response": 65,
+  "groups": 8398,
+  "largest_groups": [
+    270,
+    210,
+    90,
+    90,
+    80,
+    50,
+    50,
+    50,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40
+  ],
+  "split_counts": {
+    "test": 14577,
+    "train": 69783,
+    "val": 15296
+  },
+  "label_counts": {
+    "openness_low": 9963,
+    "openness_high": 9969,
+    "conscientiousness_low": 9968,
+    "conscientiousness_high": 9967,
+    "extraversion_low": 9947,
+    "extraversion_high": 9972,
+    "agreeableness_low": 9971,
+    "agreeableness_high": 9968,
+    "neuroticism_low": 9964,
+    "neuroticism_high": 9967
+  },
+  "role_counts": {
+    "test:query": 7351,
+    "test:memory": 7226,
+    "train:train": 69783,
+    "val:memory": 7827,
+    "val:query": 7469
+  },
+  "rule": "Transitive original_index, normalized head, anonymized nonempty input; seed310 hash allocation."
+}

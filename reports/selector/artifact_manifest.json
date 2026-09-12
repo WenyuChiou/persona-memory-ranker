@@ -1,0 +1,107 @@
+{
+  "schema_version": "selector-public-artifacts-v1",
+  "measurement_source_commit": "60ab2db",
+  "notes": [
+    "Copies retain exact original bytes; frozen paths refer to the original local pipeline locations.",
+    "Raw data, feature matrices, R bundle, generation caches, method keys and human rating files remain local; reproducible scripts are public.",
+    "No human ratings have been generated or entered by an AI."
+  ],
+  "artifacts": [
+    {
+      "source": "artifacts/selector/selection.json",
+      "public_copy": "reports/selector/selection.json",
+      "sha256": "34b5e4f875d4aa793ad97ba3afc85805965ee0c6e89af13830ee5db1e4342ae2",
+      "bytes": 355
+    },
+    {
+      "source": "artifacts/selector/training_config.json",
+      "public_copy": "reports/selector/training_config.json",
+      "sha256": "b27f1c61fdf7057eb2f6af7f1d880503c34fcb6eb777916106cd932bedb9502c",
+      "bytes": 4025
+    },
+    {
+      "source": "artifacts/selector/training_manifest.json",
+      "public_copy": "reports/selector/training_manifest.json",
+      "sha256": "68874e565456dec0bfebb4906c44960a3175cee54d17e39a0e0f188c3dc6d262",
+      "bytes": 660
+    },
+    {
+      "source": "artifacts/selector/frozen.json",
+      "public_copy": "reports/selector/frozen.json",
+      "sha256": "b1467f84af9fb1f39718728989bdcd01560b7cc931ad7d431a8ae790830f3761",
+      "bytes": 4615
+    },
+    {
+      "source": "artifacts/selector/cv_metrics.csv",
+      "public_copy": "reports/selector/cv_metrics.csv",
+      "sha256": "7cf98fbe5258707e8987db276851c27ea60d0461509e88f341d8742d2ca9e76c",
+      "bytes": 759
+    },
+    {
+      "source": "artifacts/selector/validation_metrics.csv",
+      "public_copy": "reports/selector/validation_metrics.csv",
+      "sha256": "c8f960954949f6e4072cec21311d20524ceae62a7c51021a39f68d806a83b7da",
+      "bytes": 247
+    },
+    {
+      "source": "artifacts/selector/test_metrics.csv",
+      "public_copy": "reports/selector/test_metrics.csv",
+      "sha256": "5a0b9212852d615055966146ee71c9c4b93fb454c0e350c25af208fcb92c9391",
+      "bytes": 310
+    },
+    {
+      "source": "artifacts/selector/test_per_class.csv",
+      "public_copy": "reports/selector/test_per_class.csv",
+      "sha256": "19d5a113be31278574ac68de6af2d072900cf41010ae508585fdf278a844d107",
+      "bytes": 6076
+    },
+    {
+      "source": "artifacts/selector/test_confusion_matrices.csv",
+      "public_copy": "reports/selector/test_confusion_matrices.csv",
+      "sha256": "cbbf2c8e89785aabbfef06ded0269a762dfc59c0ea5615d434ba5621825a690a",
+      "bytes": 35468
+    },
+    {
+      "source": "artifacts/selector/test_confidence_bins.csv",
+      "public_copy": "reports/selector/test_confidence_bins.csv",
+      "sha256": "002a3426fe8752d7de7ac2e0a924ae3df7c58d73fdbdf5d6b6db67d51e4fd215",
+      "bytes": 3708
+    },
+    {
+      "source": "artifacts/selector/test_evaluation.json",
+      "public_copy": "reports/selector/test_evaluation.json",
+      "sha256": "1e7a0a93aa719821d59b74643a0c78e692fa22922847d044a8c933804d1b4e05",
+      "bytes": 206
+    },
+    {
+      "source": "artifacts/selector/parity_fixture.csv",
+      "public_copy": "reports/selector/parity_fixture.csv",
+      "sha256": "393e7e82ba811c85177a211e6e31566578763b476df9f2da24ed76c7ec561e13",
+      "bytes": 106869
+    },
+    {
+      "source": "artifacts/selector/parity_expected_probabilities.csv",
+      "public_copy": "reports/selector/parity_expected_probabilities.csv",
+      "sha256": "c5c941839cbb34ded0d1341756c51db8d69d119da611ca1c5f979c2550044cde",
+      "bytes": 4350
+    },
+    {
+      "source": "models/selector/logistic.json",
+      "public_copy": "models/selector/logistic.json",
+      "sha256": "6e9d4eaffeea66769555423cb4165f2a25f8ec3a0f77b77c33b8ebb5fbdc3766",
+      "bytes": 102417
+    },
+    {
+      "source": "artifacts/selector/clusters.json",
+      "public_copy": "artifacts/selector/clusters.json",
+      "sha256": "742ade5d4c973f2d8ecf404806278752f2162eadf46099fe40d771cec3b486a3",
+      "bytes": 239996
+    },
+    {
+      "source": "artifacts/selector/weights.json",
+      "public_copy": "artifacts/selector/weights.json",
+      "sha256": "35bf0fdc17fa0dcd6e5cf9cb18e5f9f965675441522b4da3de33ed54485654d6",
+      "bytes": 793
+    }
+  ]
+}

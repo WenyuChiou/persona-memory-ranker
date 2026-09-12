@@ -1,0 +1,6 @@
+"candidate","validation_macro_f1","selected"
+"context_glmnet",0.396890952486291,FALSE
+"context_rf",0.269713575759618,FALSE
+"response_glmnet",0.582924908618841,TRUE
+"response_rf",0.445229048500253,FALSE
+"tfidf_glmnet",0.580237901528125,FALSE
