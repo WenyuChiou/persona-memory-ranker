@@ -1,5 +1,5 @@
 #!/usr/bin/env Rscript
-# Selector-only dependencies; legacy R/bootstrap.R remains unchanged.
+# Dependencies used by the Persona Memory Selector R analysis.
 script <- sub("^--file=", "", grep("^--file=", commandArgs(FALSE), value = TRUE)[[1]])
 root <- normalizePath(file.path(dirname(script), "..", ".."), winslash = "/", mustWork = TRUE)
 source(file.path(root, "R", "common.R"))

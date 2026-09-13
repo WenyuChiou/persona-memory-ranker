@@ -63,8 +63,6 @@ No ranking method is declared better at persona behavior from classifier scores 
 
 ## Reproducibility
 
-See [the artifact manifest](artifact_manifest.json), [the frozen protocol copy](frozen.json), source_manifest.json, features.json and the local generation cache. Public report copies retain exact original bytes and hashes. Packs use a conservative 2,000-byte upper bound and at most 5 examples. Local AI completion counts are not human quality scores.
+See [the artifact manifest](artifact_manifest.json), [the frozen protocol copy](frozen.json), source_manifest.json, features.json and the local generation cache. Measured data, model and result copies retain their original bytes and hashes; frozen.json records the documented package-only encoder move. Packs use a conservative 2,000-byte upper bound and at most 5 examples. Local AI completion counts are not human quality scores.
 
 The 200-group name-shift diagnostic is reported in stress.json. Direct-self-description masking changed zero selected rows, so that diagnostic provides no evidence about removal of explicit trait statements.
-
-The PersonaMem-v2 numbers in the preserved legacy reports are a different experiment.

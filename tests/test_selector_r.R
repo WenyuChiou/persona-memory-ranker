@@ -9,7 +9,7 @@ assert_error <- function(expr, pattern) {
     stop("Expected error matching ", pattern, call. = FALSE)
 }
 
-# The EDA must audit the selector's pinned BIG5-CHAT source, never the legacy benchmark inputs.
+# The EDA must audit the selector's pinned BIG5-CHAT source.
 eda_source <- paste(readLines(file.path(root, "R", "selector", "eda.Rmd"), warn = FALSE), collapse = "\n")
 stopifnot(grepl('data", "raw", "selector", "big5_chat_dataset.csv', eda_source, fixed = TRUE),
           grepl('reports", "selector", "source_manifest.json', eda_source, fixed = TRUE),

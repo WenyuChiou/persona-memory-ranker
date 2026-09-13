@@ -12,8 +12,8 @@
 
 簡報對象是修 DSCI310 的同學。使用 **Presentations** 製作可編輯的文字、圖表與講者備註，使用 **research-talk-coach** 安排例子與說明順序。流程圖使用你常用的 **technical-visual-explainer**，以 imagegen 產生；圖像本身是 PNG，圖上的節點不是 PowerPoint 原生形狀。
 
-- [M1：清理、EDA 與分類，10 分鐘](M1-presentation-v3.pptx)；[完整講稿](M1-speaker-notes.md)。
-- [M2：完整實驗設計與自動結果，15 分鐘](M2-presentation-v3.pptx)；[完整講稿](M2-speaker-notes.md)。人工效果評估仍待完成。
+- [M1：清理、EDA 與分類，10 分鐘](M1-presentation-v4.pptx)；[完整講稿](M1-speaker-notes.md)。
+- [M2：完整實驗設計與自動結果，15 分鐘](M2-presentation-v4.pptx)；[完整講稿](M2-speaker-notes.md)。人工效果評估仍待完成。
 - [資料處理流程圖](figures/data-workflow.png)與[回答／檢索流程圖](figures/answer-workflow.png)；[製圖來源與檢查紀錄](figures/PROVENANCE.md)。
 
 簡報與英文講稿供課堂報告；本頁、資料步驟與評分手冊提供中文說明。合成語音影片保存在本機 `deliverables/video/selector/`，供排練參考，不代表學生已錄製或提交作業。

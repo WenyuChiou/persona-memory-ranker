@@ -1,1 +1,1 @@
-"""Persona-conditioned behavioral exemplar selection (separate from legacy PMR)."""
+"""Classify and retrieve behavioral examples for consistent AI role-playing."""

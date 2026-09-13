@@ -2,7 +2,7 @@
 
 ## 1. Research question
 
-With one fixed persona prompt, does selection of personality-related behavioral exemplars improve role-consistent decisions? Compare classification-aware flat retrieval with a graph using the same candidates. The study tests an Apersona-compatible component, not the entire private engine or a psychological assessment of people.
+With one fixed persona prompt, does selection of personality-related behavioral exemplars improve role-consistent decisions? Compare classification-aware flat retrieval with a graph using the same candidates. The study tests a bounded course-project component, not a psychological assessment of people.
 
 Ten labels represent five Big Five dimensions at high/low generation settings. They are mutually exclusive **dataset generation targets**, not ten kinds of people. The softmax score is not a person's probability of having a trait. Other dimensions are unobserved, not negative labels.
 
@@ -65,6 +65,6 @@ Generalization claims are bounded to held-out scenario groups and the two tested
 
 ## 6. Deliverables and acceptance
 
-Keep legacy PersonaMem-v2 artifacts intact. New data live under selector subdirectories. Ship R source/notebook, Python CLI/scorer, frozen manifests, explicit tests, static demo using real cached validation answers, blinded rating material, M0 proposal and editable M1/M2 decks with scripts.
+This repository contains only the Persona Memory Selector study. Ship R source/notebook, Python CLI/scorer, frozen manifests, explicit tests, static demo using real cached validation answers, blinded rating material, M0 proposal and editable M1/M2 decks with scripts.
 
-The automated study can finish while human ratings remain pending. Never publish a persona-quality gain before those ratings exist. No graph advantage means the simpler flat selector remains the integration default.
+The automated study can finish while human ratings remain pending. Never publish a persona-quality gain before those ratings exist. If the graph shows no advantage, the simpler flat selector is the supported result.

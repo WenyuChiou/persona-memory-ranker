@@ -5,7 +5,14 @@ import json
 import shutil
 import subprocess
 
-from persona_memory_ranker.io import read_json, write_json
+def read_json(path):
+    return json.loads(Path(path).read_text(encoding='utf-8-sig'))
+
+
+def write_json(path, value):
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(value, ensure_ascii=False, indent=2), encoding='utf-8')
 
 root=Path(__file__).resolve().parents[1]
 parser=argparse.ArgumentParser();parser.add_argument('--milestone',choices=['M1','M2'],required=True);args=parser.parse_args()

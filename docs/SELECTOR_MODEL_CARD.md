@@ -28,7 +28,7 @@ The request accepts a nonempty `query`, one target `trait`, a list of permitted 
 
 Outputs retain the supplied text, source references, classification scores, retrieval scores and memory types. They do not insert a label into the source text or manufacture an episode. The memory budget counts full rendered memory text with a conservative UTF-8 byte upper bound, at most five examples. The caller must also budget its system prompt, current query, other context and generated answer.
 
-For an Apersona integration, keep the application's existing persona prompt and permission checks. Insert the returned block beside that prompt:
+To reproduce the course experiment, place the returned example block beside the fixed persona prompt:
 
 ```python
 from pathlib import Path
@@ -48,7 +48,7 @@ if selection["memory_block"]:
 messages.append({"role": "user", "content": current_question})
 ```
 
-The variables in this snippet belong to the host application; it is an integration sketch, not a standalone answer generator. Classification can be cached when memory text and model versions stay unchanged. The current study retrieves examples under a supplied trait target; it does not learn or retrieve the application's complete system prompt.
+The variables in this snippet are placeholders for the experiment runner; the selector itself does not generate an answer. Classification can be cached when memory text and model versions stay unchanged. The study retrieves examples under a supplied trait target; it does not learn or retrieve the complete system prompt.
 
 ## Evaluation boundaries
 
@@ -62,7 +62,7 @@ Human response ratings remain pending until both reviewers complete the provided
 
 ## Attribution
 
-Training examples come from [BIG5-CHAT](https://huggingface.co/datasets/wenkai-li/big5_chat), dataset revision `adf1cd37997b498ff7b220827eaacdeb8aa6d905`, whose official card identifies Apache-2.0. The fixed encoder is [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2); its exact revision and pooling policy are recorded in `reports/selector/features.json`. No Apersona private memories are included.
+Training examples come from [BIG5-CHAT](https://huggingface.co/datasets/wenkai-li/big5_chat), dataset revision `adf1cd37997b498ff7b220827eaacdeb8aa6d905`, whose official card identifies Apache-2.0. The fixed encoder is [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2); its exact revision and pooling policy are recorded in `reports/selector/features.json`. The repository contains public course-project data and generated artifacts only.
 
 ## Current measured model
 

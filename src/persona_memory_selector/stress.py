@@ -4,7 +4,7 @@ import numpy as np
 from .data import LABELS,dump,digest
 from .features import pooled
 from .experiment import Selector,verify
-from persona_memory_ranker.retrieval import Encoder
+from .encoder import Encoder
 
 
 def macro_f1(gold,predicted):

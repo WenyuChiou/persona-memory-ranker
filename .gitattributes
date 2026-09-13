@@ -1,14 +1,5 @@
 # Protocol and model hashes identify bytes, including line endings.
 # Preserve the measured files on Windows and Unix checkouts.
-src/persona_memory_ranker/*.py -text diff
-R/*.R -text diff
-models/*.json -text diff
-data/download_manifest.json -text diff
-reports/*.json -text diff
-reports/*.csv -text diff
-reports/*.html -text
-deliverables/*.html -text
-web/demo-data.js -text diff
 src/persona_memory_selector/*.py -text diff
 R/selector/*.R -text diff
 models/selector/*.json -text diff
