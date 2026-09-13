@@ -3,7 +3,7 @@ import json
 import numpy as np
 from .features import Scorer,pooled
 from .ranking import rank_candidates,pack,memory_block
-from persona_memory_ranker.retrieval import Encoder
+from .encoder import Encoder
 
 
 def retrieve(root,request):

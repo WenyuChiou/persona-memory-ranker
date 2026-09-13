@@ -43,7 +43,7 @@ pmr_use_pandoc <- function(root) {
 pmr_require <- function(packages) {
   absent <- packages[!vapply(packages, requireNamespace, logical(1), quietly = TRUE)]
   if (length(absent)) stop("Missing R packages: ", paste(absent, collapse = ", "),
-                           ". Run Rscript R/bootstrap.R first.", call. = FALSE)
+                           ". Run Rscript R/selector/bootstrap.R first.", call. = FALSE)
 }
 
 pmr_args <- function(required, optional = character()) {

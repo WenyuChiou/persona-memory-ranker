@@ -23,8 +23,6 @@ jobs:
           node-version: '22'
       - run: python -m pip install -e '.[test]'
       - run: python -m pytest -q
-      - run: python -m unittest discover -s web -p 'test_*.py'
-      - run: node web/tests.js
 
   r-pipeline:
     runs-on: ubuntu-latest
@@ -40,9 +38,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install --yes --no-install-recommends libuv1-dev
-      - run: Rscript R/bootstrap.R
       - run: Rscript R/selector/bootstrap.R
-      - run: Rscript tests/test_r_pipeline.R
       - run: Rscript tests/test_selector_r.R
       - run: Rscript tests/test_selector_resume.R
 

@@ -1,129 +1,81 @@
 # Persona Memory Selector
 
-The current DSCI310 study classifies BIG5-CHAT behavioral exemplars and compares fixed-prompt, vector, flat classifier, and graph selection.
+This DSCI310 project tests whether an AI can give more role-consistent answers when it receives behavioral examples selected for the current situation and target trait.
 
-- [Current protocol and data workflow](docs/SELECTOR_PROTOCOL.md)
-- [New interactive demo](https://wenyuchiou.github.io/persona-memory-ranker/selector/)
-- [白話資料處理步驟](deliverables/selector/DATA_WALKTHROUGH.md)
-- [Portable model and application interface](docs/SELECTOR_MODEL_CARD.md)
-- [Course and blind-review materials](deliverables/selector/README.md)
-- [Current M0 proposal](deliverables/M0-proposal.md)
+## The idea in plain language
 
-The frozen test contains 14,577 records from held-out scenario groups. Response-only logistic achieved **58.8% Macro-F1**, compared with **58.2%** for TF-IDF logistic. All 500 local responses completed; **human persona-quality ratings remain pending (0/800)**. See the [measured results](reports/selector/RESULTS.md).
+Suppose the character is careful and dependable. A client asks for an earlier deadline. A fixed persona prompt describes the character, but it does not show how the character behaves under pressure.
 
-The reusable interface is `pms retrieve --input examples/selector_request.json`. It returns original examples, classification scores and source references for the supplied persona target.
+This project searches a bank of dialogue examples, predicts which personality trait each response expresses, and gives the most relevant examples to a local language model. We then compare the answers produced with and without those examples.
 
-For a fresh local study on Windows:
+The study asks two separate questions:
+
+1. Can course models classify the ten BIG5-CHAT generation labels?
+2. Do examples chosen with those classifications help a local AI maintain the requested role?
+
+The first question has measured results. The second still requires two human reviewers.
+
+## Complete project flow
+
+1. **Download one fixed dataset version.** BIG5-CHAT contains 100,000 synthetic dialogue records with five Big Five traits, each generated at a high or low setting.
+2. **Clean the records.** Remove rows without an input or response, preserve the original text and source row, replace names only in model input, and record every exclusion.
+3. **Keep related scenarios together.** Ten personality versions of the same situation must stay in one split. This prevents the model from seeing a near-copy of a test question during training.
+4. **Turn text into numbers.** TF-IDF represents distinctive words. A fixed MiniLM encoder represents semantic similarity. Long passages are processed in overlapping windows.
+5. **Train course models in R.** Multinomial logistic regression and random forest predict one of ten generation labels. Grouped cross-validation chooses the model before the test set is scored.
+6. **Build one shared candidate set.** For each new question, semantic similarity retrieves the same top 50 candidates for methods B, C, and D.
+7. **Compare four answer conditions.** A uses only the fixed persona prompt. B adds similar examples. C reranks them using the classifier. D adds graph relationships between situations, examples, and trait scores.
+8. **Keep the comparison fair.** B, C, and D use the same candidates, at most five examples, and a conservative 2,000-byte evidence limit.
+9. **Generate answers locally.** Qwen 2.5 7B is the main model and Llama 3.1 8B is the transfer check. No paid API is required.
+10. **Evaluate the two outcomes separately.** Macro-F1 evaluates classification. Two blinded reviewers score role behavior, voice, relevance, fabricated history, factual errors, and invalid answers.
+
+See the [Chinese data walkthrough](deliverables/selector/DATA_WALKTHROUGH.md) for row-level examples and the [study protocol](docs/SELECTOR_PROTOCOL.md) for the fixed experimental rules.
+
+## Current measured results
+
+- Raw records: 100,000
+- Retained after cleaning: 99,656
+- Frozen test records: 14,577
+- Response-only logistic Macro-F1: 0.5878
+- TF-IDF logistic Macro-F1: 0.5821
+- Local answers generated and validated: 500
+- Human persona-quality ratings completed: 0 of 800
+
+The classification result does not prove that the generated answers fit the role better. That conclusion depends on the blinded human comparison.
+
+## Demo and course materials
+
+- [Interactive demo](https://wenyuchiou.github.io/persona-memory-ranker/selector/)
+- [Measured results](reports/selector/RESULTS.md)
+- [R cleaning and EDA report](reports/selector/eda.html)
+- [M0 proposal](deliverables/M0-proposal.md)
+- [M1 presentation](deliverables/selector/M1-presentation-v4.pptx)
+- [M2 presentation](deliverables/selector/M2-presentation-v4.pptx)
+- [Blind-review guide](deliverables/selector/REVIEW_GUIDE.md)
+
+Formal rating pages and method keys stay local so the public repository cannot reveal the answer conditions to reviewers.
+
+## Run the reusable selector
+
+```powershell
+python -m pip install -e ".[encoder]"
+pms retrieve --input examples/selector_request.json --output selection.json
+```
+
+The command accepts a question, one target trait, and a list of permitted dialogue examples. It returns selected original text, source references, classification scores, and retrieval scores. It does not generate an AI answer.
+
+## Reproduce the full study
 
 ```powershell
 python -m pip install -e ".[encoder,test]"
-Rscript R/bootstrap.R
 Rscript R/selector/bootstrap.R
 powershell -File scripts/run_selector.ps1 -Generate
 Rscript R/selector/render.R
 ```
 
-R must be installed; the wrapper also discovers standard Windows R installations if `Rscript` is not on PATH. Generation requires the already installed local Ollama models `qwen2.5:7b` and `llama3.1:8b`. It uses no paid API. A frozen run verifies its inputs and reuses matching response caches. Human ratings remain pending until the two reviewers fill their files; generating answers does not complete that evaluation.
+The generation stage requires local Ollama installations of `qwen2.5:7b` and `llama3.1:8b`. Raw data, embeddings, local response caches, blind-review files, and private method keys are excluded from Git.
 
-## Preserved PersonaMem-v2 retrieval study
+## Data and research limits
 
-The results below belong to the earlier evidence-retrieval study. They are not personality-quality results.
+The project uses [BIG5-CHAT](https://huggingface.co/datasets/wenkai-li/big5_chat), revision `adf1cd37997b498ff7b220827eaacdeb8aa6d905`. The official dataset card identifies the license as Apache-2.0.
 
-
-**Which memories should an AI persona retrieve for its next answer?**
-
-This DSCI310 project compares lexical, semantic, hybrid, and R-trained evidence rankers under a fixed context budget. It preserves source text and evaluates retrieval on synthetic persona conversations. The reusable scorer belongs after a host application's permission, time-validity, and memory-status checks.
-
-The project studies retrieval quality. It does not diagnose personality or establish psychological causality.
-
-- [Live interactive evidence explorer](https://wenyuchiou.github.io/persona-memory-ranker/)
-- [Research protocol](docs/PROTOCOL.md)
-- [Original M0 proposal](deliverables/legacy/M0-proposal.md)
-- [Generated results](reports/RESULTS.md)
-- [Data card](docs/DATA_CARD.md) and [model/interface card](docs/MODEL_CARD.md)
-
-## Measured outcome
-
-On **4,471 aligned benchmark questions from 200 held-out personas**, logistic regression achieved **39.41%** evidence recall at 2,000 tokens, compared with **38.04%** for vector retrieval and **35.48%** for RRF. Logistic was selected on validation before benchmark scoring. The paired persona-bootstrap difference from vector retrieval is **+1.37 percentage points**, with an exploratory 95% interval of **+0.75 to +1.96**.
-
-The benefit has limits: removing position changes mean recall by only 0.25 percentage points, with an interval spanning zero. Logistic trails vector retrieval on update-labelled questions (92.63% vs 93.74%). There are 358 benchmark questions with no annotated evidence in the candidate pool. See the [complete results and failure analysis](reports/RESULTS.md).
-
-![Benchmark evidence recall with 95% persona bootstrap intervals](reports/benchmark-budget-recall.png)
-
-The 100-case **human audit remains pending**. These measurements concern incomplete annotations in synthetic conversations; they do not establish answer quality or real-user benefit.
-
-## A consequential data-cleaning finding
-
-The pinned PersonaMem-v2 release differs from its dataset card. The actual CSVs contain **18,549 training**, **2,061 validation**, and **5,000 benchmark** questions. All 735 validation personas overlap the official training personas; persona `78` also overlaps the benchmark. Some histories include a `system` message containing the complete synthetic persona.
-
-We preserve the 200 benchmark personas, remove their development rows, and split the remaining 799 development personas by a fixed hash into **639 train / 160 validation**. Original split and row IDs remain traceable. Complete-persona system messages never enter the memory index. See `reports/split_audit.json` and `reports/alignment.json` for computed evidence.
-
-## Reproduce
-
-Python 3.11+ and R are required. The executed environment uses Python 3.14 and R 4.6.1 on Windows CPU. A GPU and paid LLM API are unnecessary.
-
-```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install -e ".[encoder,test]"
-Rscript R/bootstrap.R
-python -m pytest -q
-Rscript tests/test_r_pipeline.R
-```
-
-If `Rscript` is not on PATH, use its installed absolute path. The Python CLI also discovers standard Windows R installations. R packages install into the project-local `.Rlib` directory.
-
-Linux source installations of the notebook dependencies require the libuv development headers (`sudo apt-get install libuv1-dev` on Ubuntu). Pandoc is also required to render HTML; `R/bootstrap.R` reports whether it is available.
-
-Start with the labelled development smoke run:
-
-```powershell
-powershell -File scripts/run_experiment.ps1 -Smoke
-```
-
-Run the full experiment in a fresh checkout or before freezing a protocol:
-
-```powershell
-powershell -File scripts/run_experiment.ps1
-Rscript R/render.R --output reports/eda.html
-Rscript R/plot_results.R --split benchmark --output reports/benchmark-budget-recall.png
-python scripts/build_report.py
-python scripts/export_models.py
-python scripts/build_demo.py --split benchmark
-```
-
-The script downloads pinned source files, calls R cleaning, aligns evidence, builds development features, trains R models, checks R/Python parity, evaluates validation, freezes the protocol, and finally evaluates the benchmark. A subset cannot unlock the benchmark. Freeze manifests reject changes to data, models, or research code. Downloads and embedding caches are reused by content identity. Git attributes preserve the exact line-ending bytes of protocol sources, metric tables and portable model files so their recorded hashes survive cross-platform checkouts.
-
-Grouped out-of-fold predictions are evaluated separately as `cv`, using the full training-query gold denominators. Reports, notebooks, slides and the demo verify saved evaluation inputs and metric-table hashes before displaying results. Regenerating an audit queue refuses to overwrite any entered reviewer fields.
-
-Large data, embeddings, R libraries, full R training objects, and videos stay out of Git. Small portable JSON models and feature definitions are exported to `models/`. Download manifests contain source URLs, SHA-256 hashes, sizes, and selected persona IDs. The 100-case human audit queue is generated in `reports/private/human_audit_100.csv`; an empty reviewer field is **pending**, never a completed review.
-
-## Try the reusable interface
-
-```powershell
-python -m persona_memory_ranker.cli retrieve --input examples/memories.json --output artifacts/example-result.json --method rrf
-python -m persona_memory_ranker.cli retrieve --input examples/memories.json --output artifacts/example-logistic.json --method logistic --models models
-```
-
-Input is `{"query": "...", "memories": [...]}`. Each memory supplies `memory_id`, `text`, `source_ref`, and nonnegative integer `turn_index`. The output includes ranked original evidence, scores, a context block, and its token count. The CLI uses the frozen MiniLM WordPiece tokenizer for budget accounting; a production host must also enforce its target model's tokenizer budget.
-
-The scorer accepts only the frozen numeric feature allowlist. It cannot accept gold answers, infer authorization, promote candidate memories to accepted status, or rewrite source evidence. [Interface details](docs/MODEL_CARD.md).
-
-For scorer-only use, the base package requires NumPy; the optional `encoder` extra supplies text encoding. CLI `--method auto` uses a supplied `selection.json` when available, otherwise the explicit untrained hybrid baseline.
-
-## Course deliverables
-
-| Milestone | Due in 2026 (Eastern) | Artifact |
-|---|---|---|
-| M0 | September 12, 11:59 PM | Title, abstract, data source; Chrome form draft |
-| M1 | October 10, 11:59 PM | R preprocessing/EDA notebook; 10-minute presentation |
-| M2 | November 28, 11:59 PM | Source, experimental results, interactive demo, PowerPoint; 15-minute presentation |
-
-The notebook and presentations must disclose unresolved human annotation review and the limits of synthetic data. Review the narrative before using it as a personal course presentation.
-
-## Sources and licenses
-
-- [PersonaMem-v2 dataset](https://huggingface.co/datasets/bowen-upenn/PersonaMem-v2), revision `ed956dea41521fc4499acbc63f966e0fd3c053ba`, **CC BY 4.0**. Conversation excerpts retain this attribution; the project changes their formatting and turn grouping.
-- [Dataset authors' repository](https://github.com/bowen-upenn/PersonaMem-v2) and [paper](https://arxiv.org/abs/2512.06688).
-- [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2), revision `1110a243fdf4706b3f48f1d95db1a4f5529b4d41`, **Apache 2.0**. The encoder is frozen, not trained for this course project.
-- Original project code: MIT. No private team corpus, internal engine code, or Slack material is included.
+The labels describe synthetic generation settings. They are not diagnoses, calibrated measurements of people, or proof of psychological causality. The project evaluates an AI role-playing method under controlled conditions.

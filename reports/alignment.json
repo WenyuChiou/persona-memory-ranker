@@ -1,9 +1,0 @@
-{
-  "input_queries": 25584,
-  "aligned_queries": 22952,
-  "excluded_queries": 2632,
-  "memories": 115484,
-  "histories": 999,
-  "excluded_system_messages": 999,
-  "method": "unique exact contiguous role/content sequence"
-}

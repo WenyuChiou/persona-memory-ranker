@@ -3,8 +3,8 @@ import json
 import hashlib
 from pathlib import Path
 import numpy as np
-from persona_memory_ranker.retrieval import Encoder
-from persona_memory_ranker.config import MODEL, MODEL_REVISION, WINDOW_TOKENS, WINDOW_OVERLAP
+from .encoder import Encoder
+from .config import MODEL, MODEL_REVISION, WINDOW_TOKENS, WINDOW_OVERLAP
 from .data import read_csv, write_csv, dump
 
 FEATURE_SPEC={'encoder':MODEL,'revision':MODEL_REVISION,'window_tokens':WINDOW_TOKENS,

@@ -1,8 +1,0 @@
-{
-  "query": "Suggest a quiet place where I can read this weekend.",
-  "memories": [
-    {"memory_id": "demo:0", "source_ref": "synthetic-example:message-0", "turn_index": 0, "text": "user: I enjoy reading in quiet libraries and small cafes. Crowded places make it hard to concentrate."},
-    {"memory_id": "demo:1", "source_ref": "synthetic-example:message-1", "turn_index": 1, "text": "user: My colleague likes loud concerts and crowded festivals."},
-    {"memory_id": "demo:2", "source_ref": "synthetic-example:message-2", "turn_index": 2, "text": "user: I used to read at Riverside Cafe, but it has become noisy. I now prefer the library reading room."}
-  ]
-}

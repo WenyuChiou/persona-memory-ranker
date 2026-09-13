@@ -1,8 +1,9 @@
 {
   "schema_version": "selector-public-artifacts-v1",
-  "measurement_source_commit": "60ab2db",
+  "measurement_source_commit": "6e144775fe7a25561309b1f0a4430258d0c3ae2b",
   "notes": [
-    "Copies retain exact original bytes; frozen paths refer to the original local pipeline locations.",
+    "Measured data, model, and result artifacts retain their original bytes from the measurement commit.",
+    "The frozen manifest was migrated only to move the fixed encoder into the selector package and remove unrelated project files.",
     "Raw data, feature matrices, R bundle, generation caches, method keys and human rating files remain local; reproducible scripts are public.",
     "No human ratings have been generated or entered by an AI."
   ],
@@ -28,8 +29,8 @@
     {
       "source": "artifacts/selector/frozen.json",
       "public_copy": "reports/selector/frozen.json",
-      "sha256": "b1467f84af9fb1f39718728989bdcd01560b7cc931ad7d431a8ae790830f3761",
-      "bytes": 4615
+      "sha256": "6599b4b61a40b89c229c1e88f0388979b76dfa6062f311e64324a36fc6e9b0d0",
+      "bytes": 4819
     },
     {
       "source": "artifacts/selector/cv_metrics.csv",

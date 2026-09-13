@@ -37,9 +37,9 @@ lines+=['','## Local generation','', '```json',json.dumps(completion,indent=2),'
  '## Human evaluation','',f"Status: {human['status']}; completed rating rows: {human.get('completed_ratings',0)}. Two reviewers x100 situations x4 answers =800 expected rows.",'',
  'No ranking method is declared better at persona behavior from classifier scores alone. Graph advantage is a separate D-minus-C hypothesis.','',
  '## Reproducibility','',
- 'See [the artifact manifest](artifact_manifest.json), [the frozen protocol copy](frozen.json), source_manifest.json, features.json and the local generation cache. Public report copies retain exact original bytes and hashes. Packs use a conservative 2,000-byte upper bound and at most 5 examples. Local AI completion counts are not human quality scores.','',
- 'The 200-group name-shift diagnostic is reported in stress.json. Direct-self-description masking changed zero selected rows, so that diagnostic provides no evidence about removal of explicit trait statements.','',
- 'The PersonaMem-v2 numbers in the preserved legacy reports are a different experiment.']
+ 'See [the artifact manifest](artifact_manifest.json), [the frozen protocol copy](frozen.json), source_manifest.json, features.json and the local generation cache. Measured data, model and result copies retain their original bytes and hashes; frozen.json records the documented package-only encoder move. Packs use a conservative 2,000-byte upper bound and at most 5 examples. Local AI completion counts are not human quality scores.','',
+ 'The 200-group name-shift diagnostic is reported in stress.json. Direct-self-description masking changed zero selected rows, so that diagnostic provides no evidence about removal of explicit trait statements.',
+]
 out=root/'reports/selector/RESULTS.md';out.parent.mkdir(parents=True,exist_ok=True);out.write_text('\n'.join(lines)+'\n',encoding='utf-8')
 (root/'reports/selector/generation_status.json').write_text(json.dumps(completion,indent=2),encoding='utf-8')
 print(out)

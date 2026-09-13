@@ -70,7 +70,7 @@ Source: https://huggingface.co/datasets/wenkai-li/big5_chat
 
 ## 12. The graph and the prompt (50 seconds planned)
 
-The graph is a structure for finding examples. It is not a map of psychological causes. A situation group connects related conversation contexts, and a trait connection stores a classifier score. The selected source text becomes an evidence block next to the fixed persona instruction. The prompt explicitly says these are examples, not events the AI personally experienced. This distinction matters for Apersona. An application can later provide memories owned by a specific character, but the adapter must preserve that ownership. Public dialogue examples cannot silently become somebody else’s biography.
+The graph is a structure for finding examples. It is not a map of psychological causes. A situation group connects related conversation contexts, and a trait connection stores a classifier score. The selected source text becomes an evidence block next to the fixed persona instruction. The prompt explicitly says these are examples, not events the AI personally experienced. That rule keeps the experiment honest: public dialogue examples can guide a response, but they cannot silently become the character’s biography.
 
 Source: https://huggingface.co/datasets/wenkai-li/big5_chat
 
@@ -86,14 +86,14 @@ Generalization is a claim we must define carefully. Holding out scenario groups 
 
 Source: https://huggingface.co/datasets/wenkai-li/big5_chat
 
-## 15. Integration and the next evidence (60 seconds planned)
+## 15. Reusable input and output (60 seconds planned)
 
-The application interface receives a question, a target trait specification, and memories the host application has already allowed it to use. It returns selected original text with scores and source references. The host still handles permissions, expiration, and memory ownership. The public prototype uses behavioral examples; future integration can add authorized episodes belonging to a persona. Structural equation modeling remains a possible later research direction with suitable measurements. For this course, the controlled comparisons provide a clearer test. The next required evidence comes from the two reviewers, who can use the prepared anonymous rating files.
+The reusable interface receives a question, a target trait, and the examples available in the experiment. It returns selected original text with classification scores, retrieval scores, and source references. This makes each choice inspectable: we can see which source was selected and why. Structural equation modeling remains a possible later research direction with suitable measurements. For this course, the controlled comparisons provide a clearer test. The next required evidence comes from the two reviewers, who can use the prepared anonymous rating files.
 
 Source: https://huggingface.co/datasets/wenkai-li/big5_chat
 
 ## 16. What this project can establish (50 seconds planned)
 
-The useful outcome is a component that can be inspected and reused, together with evidence about when it helps. It may turn out that classification helps but the graph adds little. In that case the simpler flat selector is a sensible integration choice. A wide uncertainty interval means we need more evidence, not that the graph has been disproved. This study uses synthetic dialogues and two local models. It cannot establish human psychological validity or universal transfer to all personalities. The current delivery includes the software and evaluation materials; any claim about better persona behavior must wait for the human ratings.
+The useful outcome is a component that can be inspected and reused, together with evidence about when it helps. It may turn out that classification helps but the graph adds little. In that case the simpler flat selector is the supported result. A wide uncertainty interval means we need more evidence, not that the graph has been disproved. This study uses synthetic dialogues and two local models. It cannot establish human psychological validity or universal transfer to all personalities. The current delivery includes the software and evaluation materials; any claim about better persona behavior must wait for the human ratings.
 
 Source: https://huggingface.co/datasets/wenkai-li/big5_chat

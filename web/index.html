@@ -1,76 +1,17 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Explore saved memory retrieval evidence, compare six ranking methods, and follow each memory to its original synthetic conversation source.">
-  <title>Persona Memory Ranker · Evidence explorer</title>
-  <link rel="stylesheet" href="styles.css">
-  <script defer src="demo-data.js"></script>
-  <script defer src="ranking.js"></script>
-  <script defer src="app.js"></script>
+  <meta http-equiv="refresh" content="0; url=selector/">
+  <title>Persona Memory Selector</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 46rem; margin: 10vh auto; padding: 1.5rem; color: #142735; }
+    a { color: #176d73; }
+  </style>
 </head>
 <body>
-  <a class="skip-link" href="#explorer">Skip to evidence explorer</a>
-  <header class="masthead page-width">
-    <a class="brand" href="#top" aria-label="Persona Memory Ranker home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>Persona Memory<br> <strong>Ranker</strong></span></a>
-    <nav aria-label="Page navigation"><a href="#explorer">Explore evidence</a><a href="#results">Experiment results</a><a href="#about">About the data</a></nav>
-    <span class="course-tag">DSCI 310<span>RESEARCH DEMO</span></span>
-  </header>
-  <main id="top">
-    <section class="hero page-width" aria-labelledby="hero-title">
-      <div><p class="eyebrow"><span class="tiny-line"></span> A small model. A traceable memory.</p><h1 id="hero-title">Find the context.<br> <em>Follow the evidence.</em></h1></div>
-      <div class="hero-aside"><p>A question can match hundreds of past messages. See what six ranking methods bring forward, then open the original conversation.</p><div class="hero-chain" aria-label="Question to ranked memories to original source"><span>01 · Question</span><b aria-hidden="true">→</b><span>02 · Memories</span><b aria-hidden="true">→</b><span>03 · Source</span></div></div>
-    </section>
-    <div class="split-banner page-width"><span class="status-dot" aria-hidden="true"></span><strong id="split-marker">EVIDENCE BUNDLE NOT BUILT</strong><span id="sample-marker">Saved cases · local interaction · no live inference</span></div>
-    <p id="load-status" class="page-width load-status" role="status">Loading saved evidence…</p>
-    <section id="explorer" class="workspace page-width" aria-label="Interactive evidence explorer">
-      <aside class="controls">
-        <div class="section-label"><span>01</span><h2>Ask the archive</h2></div>
-        <p class="control-intro">Explore a saved question. Search filters this showcase; it does not run a new query.</p>
-        <label for="query-search">Find a saved question</label>
-        <input id="query-search" type="search" placeholder="Search topic or question…" autocomplete="off" disabled>
-        <p id="search-count" class="small-note" aria-live="polite"></p>
-        <label for="query-select">Question</label>
-        <select id="query-select" disabled></select>
-        <div id="presets" class="presets" aria-label="Example topic presets"></div>
-        <blockquote id="query-text" class="query-text">Your selected question will appear here.</blockquote>
-        <div id="query-meta" class="query-meta"></div>
-        <hr>
-        <label for="method-select">Ranking method</label>
-        <select id="method-select" disabled>
-          <option value="logistic">Logistic reranker</option><option value="bm25">BM25 · lexical</option>
-          <option value="semantic">Semantic similarity</option><option value="rrf">RRF · rank fusion</option>
-          <option value="logistic_no_position">Logistic · no position</option><option value="random_forest">Random forest</option>
-        </select>
-        <p id="method-description" class="small-note"></p>
-        <div class="budget-label"><label for="budget">Context budget</label><output for="budget" id="budget-value">2,000 tokens</output></div>
-        <input id="budget" type="range" min="500" max="4000" step="100" value="2000" disabled>
-        <div class="range-ends"><span>500</span><span>4,000 tokens</span></div>
-        <p class="small-note">Pack whole memory units in score order. A unit that does not fit is skipped; a smaller later unit may fit.</p>
-        <div class="annotation-note"><strong>Read labels carefully.</strong><p>“Annotated support” means the dataset identifies that memory. “Unlabeled” does not mean irrelevant.</p></div>
-      </aside>
-      <div class="evidence-workspace">
-        <div class="section-label"><span>02</span><h2>Follow the retrieval</h2><p>Change the method. Inspect the source.</p></div>
-        <div class="case-stats" aria-live="polite" aria-atomic="true">
-          <div><strong id="selected-count">—</strong><span>selected memories</span></div>
-          <div><strong id="tokens-count">—</strong><span>context tokens</span></div>
-          <div><strong id="recall-count">—</strong><span>annotated recall</span></div>
-          <div><strong id="candidate-count">—</strong><span>saved candidates</span></div>
-        </div>
-        <div class="provenance"><div class="provenance-heading"><h3>The evidence path</h3><span>Click a memory node to inspect</span></div><svg id="provenance-graph" viewBox="0 0 760 210" role="group" aria-label="Query to selected memories to original source"></svg><p id="graph-note" class="small-note"></p></div>
-        <div class="inspection-grid">
-          <section class="candidate-panel" aria-labelledby="candidates-title"><div class="panel-heading"><div><p class="eyebrow">THE COMPLETE CANDIDATE POOL</p><h3 id="candidates-title">Ranked memories</h3></div><span id="pool-coverage" class="small-note"></span></div><div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable full candidate ranking"><table class="candidate-table"><caption class="sr-only">All candidate memories ranked by the selected method. Open a row to inspect its complete original messages.</caption><thead><tr><th scope="col">Rank / memory</th><th scope="col">Score</th><th scope="col">Context</th></tr></thead><tbody id="candidate-rows"></tbody></table></div></section>
-          <section class="source-panel" aria-labelledby="source-title"><div class="panel-heading"><div><p class="eyebrow">03 · ORIGINAL SOURCE</p><h3 id="source-title">Open a memory</h3></div></div><div id="source-meta" class="source-meta"></div><p id="source-state" class="small-note"></p><div id="source-messages" class="source-messages"><p class="empty-state">Select a ranked memory to read the full source messages.</p></div><a id="source-link" class="source-link" target="_blank" rel="noopener noreferrer" hidden>View pinned dataset source <span aria-hidden="true">↗</span></a></section>
-        </div>
-      </div>
-    </section>
-    <section id="results" class="results-section page-width" aria-labelledby="results-title">
-      <div class="results-intro"><p class="eyebrow">THE EXPERIMENT, BEYOND THIS SHOWCASE</p><h2 id="results-title">What the saved<br> <em>results say.</em></h2><p id="results-scope">No experiment metrics have been loaded.</p><p>These values come from the saved evaluation report. They do not change when you adjust the showcase budget.</p><p class="small-note">95% intervals resample whole personas. Query-weighted means describe recovery of incomplete synthetic annotations.</p></div>
-      <div class="results-table-wrap"><table class="results-table"><caption id="results-caption">Saved experiment means; annotated recall at the reported token budget</caption><thead><tr><th scope="col">Method</th><th scope="col">Budget recall</th><th scope="col">Recall@5</th><th scope="col">MRR@10</th></tr></thead><tbody id="results-rows"></tbody></table></div>
-    </section>
-    <section id="about" class="about-section page-width" aria-labelledby="about-title"><div><p class="eyebrow">A RESEARCH INTERFACE</p><h2 id="about-title">Evidence, with<br> its limits attached.</h2></div><div><h3>Synthetic conversations. Incomplete labels.</h3><p>This explorer uses public PersonaMem-v2 examples. It shows retrieval behavior, not a diagnosis, a psychological profile, or proof that an assistant’s answer is correct. An update flag is a dataset annotation; history position is an order proxy, not elapsed time.</p><h3>A reproducible source chain.</h3><p>Showcase questions are selected deterministically by ID after topic exclusions, independently of ranking scores. Each case retains its entire saved candidate pool. Original role-tagged messages are preserved, and source links point to one fixed dataset revision.</p><p id="source-attribution">Source: PersonaMem-v2 · CC BY 4.0. A data bundle is needed to display its pinned source links.</p></div></section>
-  </main>
-  <footer class="page-width"><span>Persona Memory Ranker</span><span>Built to inspect. Designed to question.</span><a href="https://github.com/WenyuChiou/persona-memory-ranker">Code &amp; reproducibility</a><a href="#top">Back to top ↑</a></footer>
+  <h1>Persona Memory Selector</h1>
+  <p>正在開啟課程專案 Demo。若頁面沒有自動跳轉，請<a href="selector/">按這裡</a>。</p>
 </body>
 </html>

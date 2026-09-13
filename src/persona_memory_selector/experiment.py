@@ -14,7 +14,7 @@ import numpy as np
 from .data import LABELS, read_csv, write_csv, dump, digest
 from .features import Scorer, pooled
 from .ranking import rank_candidates, pack, memory_block
-from persona_memory_ranker.retrieval import Encoder
+from .encoder import Encoder
 
 MODELS = {'primary':'qwen2.5:7b','secondary':'llama3.1:8b'}
 TOKENIZERS = {'primary':'Qwen/Qwen2.5-7B-Instruct','secondary':'meta-llama/Llama-3.1-8B-Instruct'}
@@ -80,8 +80,7 @@ def freeze(root):
            'artifacts/selector/features_situation.npy']
     files += [str(p.relative_to(root)).replace('\\','/') for p in sorted((root/'src/persona_memory_selector').glob('*.py'))]
     files += ['R/common.R','R/selector/core.R','R/selector/train.R','R/selector/evaluate_test.R','R/selector/runtime.R']
-    files += ['src/persona_memory_ranker/retrieval.py','src/persona_memory_ranker/config.py',
-              'reports/selector/features.json','artifacts/selector/features_context.json',
+    files += ['reports/selector/features.json','artifacts/selector/features_context.json',
               'artifacts/selector/features_response.json','artifacts/selector/features_situation.json']
     model_digests={m['name']:m['digest'] for m in api('tags')['models']}
     for m in MODELS.values():

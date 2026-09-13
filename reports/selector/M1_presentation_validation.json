@@ -1,7 +1,7 @@
 {
   "schemaVersion": "presentation-finalization.v1",
-  "finalSha256": "c0c0f01dbf4560cc60c12c470929a042d7e284b88963bd3518a3addedb108993",
-  "byteCount": 2467639,
+  "finalSha256": "4a802eab18f08b4ce82514d796c0cc523d0b80baff70977b0d942152b739fc47",
+  "byteCount": 2467594,
   "packageIntegrity": {
     "chart_count": 2,
     "claim_boundary": "Structural package checks only; no slide text, notes, formulas, chart values, or native PowerPoint execution were inspected.",
@@ -75,8 +75,8 @@
     "performed": true,
     "passed": true,
     "slideCount": 12,
-    "sha256": "c0c0f01dbf4560cc60c12c470929a042d7e284b88963bd3518a3addedb108993",
-    "runtimeNodeModules": "C:/Users/wenyu/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules",
+    "sha256": "4a802eab18f08b4ce82514d796c0cc523d0b80baff70977b0d942152b739fc47",
+    "runtimeNodeModules": "C:\\Users\\wenyu\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\node_modules",
     "nodeExecutable": "C:\\Users\\wenyu\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe"
   },
   "nativeTableArithmetic": {
@@ -114,7 +114,7 @@
     "native_chart_count": 2,
     "native_powerpoint_verified": false,
     "passed": true,
-    "presentation_sha256": "c0c0f01dbf4560cc60c12c470929a042d7e284b88963bd3518a3addedb108993",
+    "presentation_sha256": "4a802eab18f08b4ce82514d796c0cc523d0b80baff70977b0d942152b739fc47",
     "schema_version": "presentation-native-chart-titles.v1",
     "slide_count": 12,
     "source_text_emitted": false,
@@ -154,7 +154,7 @@
       "failed_slides": [],
       "formal_human_reviewed": false,
       "native_application_open_verified": false,
-      "package_sha256": "c0c0f01dbf4560cc60c12c470929a042d7e284b88963bd3518a3addedb108993",
+      "package_sha256": "4a802eab18f08b4ce82514d796c0cc523d0b80baff70977b0d942152b739fc47",
       "passed": true,
       "results": [
         {
@@ -239,10 +239,10 @@
       8
     ],
     "experimental": true,
-    "input_sha256": "80d96e5c5f9da10638256d3bcfb220809006d84c062c8fc50963b5d853980b0b",
+    "input_sha256": "366f9e254782394271a95921e4d2af2c5a85577c2836481d42ac543ca16b7f50",
     "new_formulas_describe_snapshot_only": true,
-    "output_bytes": 2467639,
-    "output_sha256": "c0c0f01dbf4560cc60c12c470929a042d7e284b88963bd3518a3addedb108993",
+    "output_bytes": 2467594,
+    "output_sha256": "4a802eab18f08b4ce82514d796c0cc523d0b80baff70977b0d942152b739fc47",
     "portable_chart_validation_passed": true,
     "portable_validated_owner_slides": [
       5,
